@@ -1,0 +1,176 @@
+\chapter{Use Cases}\ChapterLabel{UseCases}
+\index{use cases}
+\index{Chapter!Use Cases}
+
+\noindent The use cases below describe how users interact with Scrap. They are based on the \hyperref[Chapter:UserStories]{User Stories} and on the team's starting list of use cases from Week 3 (see \hyperref[Chapter:WeeklyReports]{Weekly Reports}). The primary actor in every use case is a \textit{Scrap user} (a home cook, typically a college student). Every use case maps to at least one functional requirement in \hyperref[Chapter:Requirements]{Requirements}. Requirements that apply broadly rather than to a specific use case --- \RequirementRef{REQ-C-02}, \RequirementRef{REQ-C-03}, \RequirementRef{REQ-C-06}, \RequirementRef{REQ-T-01}, \RequirementRef{REQ-T-04}, \RequirementRef{REQ-T-05}, \RequirementRef{REQ-T-08}, and \RequirementRef{REQ-T-12} --- are not repeated below; the complete mapping is in the \hyperref[Chapter:Traceability]{Traceability Matrix}.
+
+\begin{sloppypar}
+\hbadness=10000
+
+\medskip\noindent\textbf{UC-01: Create Account and Kitchen Profile}\ArtifactLabel{UseCase}{UC-01}\index{UseCase!UC-01}\\
+\textbf{Requirements:} \RequirementRef{REQ-F-01}, \RequirementRef{REQ-F-11}, \RequirementRef{REQ-NF-04}, \RequirementRef{REQ-T-06}.\\
+\textbf{Actor:} Scrap user.\\
+\textbf{Preconditions:} The user has opened Scrap and is not logged in.\\
+\textbf{Main flow:}
+\begin{enumerate}
+\item The user selects \textit{Sign up} and enters an email and password.
+\item The system validates the input, stores the password as a salted hash, and creates the account.
+\item The system prompts the user to select the kitchen appliances and tools they own.
+\item The system saves the equipment profile and opens the pantry screen.
+\end{enumerate}
+\textbf{Alternate flows:} 2a. The email is already registered: the system offers to log in instead. \quad 3a. The user skips the equipment step: the system assumes no equipment filter until the profile is completed.\\
+\textbf{Postconditions:} The user is logged in with an account and a saved equipment profile.
+
+\medskip\noindent\textbf{UC-02: Manage Pantry}\ArtifactLabel{UseCase}{UC-02}\index{UseCase!UC-02}\\
+\textbf{Requirements:} \RequirementRef{REQ-F-02}, \RequirementRef{REQ-F-14}, \RequirementRef{REQ-F-18}, \RequirementRef{REQ-F-19}, \RequirementRef{REQ-F-20}, \RequirementRef{REQ-NF-03}, \RequirementRef{REQ-T-03}, \RequirementRef{REQ-T-09}.\\
+\textbf{Actor:} Scrap user.\\
+\textbf{Preconditions:} The user is logged in.\\
+\textbf{Main flow:}
+\begin{enumerate}
+\item The user opens the pantry.
+\item The user adds an ingredient, optionally with a quantity and an expiration date.
+\item The user edits or removes existing items as they are used up.
+\item The system saves the pantry and updates any expiration reminders.
+\end{enumerate}
+\textbf{Alternate flows:} 2a. The ingredient is not recognized: the system suggests the closest matching ingredient names.\\
+\textbf{Postconditions:} The pantry reflects what the user has on hand.
+
+\medskip\noindent\textbf{UC-03: Find Recipes from On-Hand Ingredients}\ArtifactLabel{UseCase}{UC-03}\index{UseCase!UC-03}\\
+\textbf{Requirements:} \RequirementRef{REQ-F-03}, \RequirementRef{REQ-F-04}, \RequirementRef{REQ-F-11}, \RequirementRef{REQ-NF-01}, \RequirementRef{REQ-NF-02}, \RequirementRef{REQ-C-01}, \RequirementRef{REQ-T-02}, \RequirementRef{REQ-T-03}, \RequirementRef{REQ-T-06}, \RequirementRef{REQ-T-09}, \RequirementRef{REQ-T-10}, \RequirementRef{REQ-T-11}.\\
+\textbf{Actor:} Scrap user.\\
+\textbf{Preconditions:} The user is logged in and has at least one pantry item.\\
+\textbf{Main flow:}
+\begin{enumerate}
+\item The user selects \textit{What can I make?}
+\item The system matches the pantry against the recipe catalog and ranks recipes by the percentage of ingredients on hand.
+\item The user optionally filters by total time, difficulty, or owned equipment.
+\item The user selects a recipe, continuing to \UseCaseRef{UC-04}.
+\end{enumerate}
+\textbf{Alternate flows:} 2a. No recipe meets a minimum match: the system shows the closest matches and their missing ingredients.\\
+\textbf{Postconditions:} The user sees a ranked, filtered list of recipes.
+
+\medskip\noindent\textbf{UC-04: View Recipe Details}\ArtifactLabel{UseCase}{UC-04}\index{UseCase!UC-04}\\
+\textbf{Requirements:} \RequirementRef{REQ-F-05}, \RequirementRef{REQ-F-06}, \RequirementRef{REQ-F-07}, \RequirementRef{REQ-NF-01}, \RequirementRef{REQ-NF-03}, \RequirementRef{REQ-NF-05}, \RequirementRef{REQ-C-04}, \RequirementRef{REQ-T-10}, \RequirementRef{REQ-T-11}.\\
+\textbf{Actor:} Scrap user.\\
+\textbf{Preconditions:} The user has selected a recipe.\\
+\textbf{Main flow:}
+\begin{enumerate}
+\item The system displays the full ingredient list, marking which items are in the pantry.
+\item The system displays the complete written steps, the recipe facts (time, difficulty, protein and nutrition), and the video if one exists.
+\item The user may continue to \UseCaseRef{UC-05}, \UseCaseRef{UC-06}, or \UseCaseRef{UC-07}.
+\end{enumerate}
+\textbf{Alternate flows:} 2a. The recipe has no video: the system shows the written steps only.\\
+\textbf{Postconditions:} The user has everything needed to cook the recipe on one screen.
+
+\medskip\noindent\textbf{UC-05: Substitute a Missing Ingredient}\ArtifactLabel{UseCase}{UC-05}\index{UseCase!UC-05}\\
+\textbf{Requirements:} \RequirementRef{REQ-F-02}, \RequirementRef{REQ-F-08}.\\
+\textbf{Actor:} Scrap user.\\
+\textbf{Preconditions:} The user is viewing a recipe with at least one missing ingredient.\\
+\textbf{Main flow:}
+\begin{enumerate}
+\item The user selects a missing ingredient.
+\item The system lists substitutes, placing those already in the pantry first.
+\item The user selects a substitute, and the recipe view marks the ingredient as covered.
+\end{enumerate}
+\textbf{Alternate flows:} 2a. No known substitute exists: the system offers to add the ingredient to the grocery list (\UseCaseRef{UC-06}).\\
+\textbf{Postconditions:} The missing ingredient is covered by a substitute or queued for purchase.
+
+\medskip\noindent\textbf{UC-06: Generate Grocery List}\ArtifactLabel{UseCase}{UC-06}\index{UseCase!UC-06}\\
+\textbf{Requirements:} \RequirementRef{REQ-F-09}, \RequirementRef{REQ-F-10}, \RequirementRef{REQ-NF-03}, \RequirementRef{REQ-C-05}, \RequirementRef{REQ-T-02}, \RequirementRef{REQ-T-06}, \RequirementRef{REQ-T-09}.\\
+\textbf{Actor:} Scrap user.\\
+\textbf{Preconditions:} The user is viewing a recipe with at least one missing ingredient.\\
+\textbf{Main flow:}
+\begin{enumerate}
+\item The user selects \textit{Add missing to grocery list}.
+\item The system adds only the ingredients not already in the pantry, scaled to the chosen number of servings.
+\item The system displays the grocery list with an estimated cost for each item and in total.
+\item The user checks off items while shopping; checked items are moved into the pantry.
+\end{enumerate}
+\textbf{Alternate flows:} 2a. The user already has every ingredient: the system reports that nothing needs to be bought.\\
+\textbf{Postconditions:} The user has a grocery list of only what is missing, with an estimated cost.
+
+\medskip\noindent\textbf{UC-07: Scale Servings and Log Leftovers}\ArtifactLabel{UseCase}{UC-07}\index{UseCase!UC-07}\\
+\textbf{Requirements:} \RequirementRef{REQ-F-02}, \RequirementRef{REQ-F-12}, \RequirementRef{REQ-F-13}.\\
+\textbf{Actor:} Scrap user.\\
+\textbf{Preconditions:} The user is viewing a recipe.\\
+\textbf{Main flow:}
+\begin{enumerate}
+\item The user changes the number of servings.
+\item The system rescales every ingredient quantity.
+\item After cooking, the user logs any extra portions as leftovers.
+\item The system adds the leftovers to the pantry and suggests recipes that reuse them.
+\end{enumerate}
+\textbf{Alternate flows:} 3a. There are no leftovers: the user skips logging.\\
+\textbf{Postconditions:} Leftovers are tracked in the pantry instead of being forgotten.
+
+\medskip\noindent\textbf{UC-08: Use Up Expiring Ingredients}\ArtifactLabel{UseCase}{UC-08}\index{UseCase!UC-08}\\
+\textbf{Requirements:} \RequirementRef{REQ-F-03}, \RequirementRef{REQ-F-14}, \RequirementRef{REQ-F-20}, \RequirementRef{REQ-NF-02}, \RequirementRef{REQ-T-07}, \RequirementRef{REQ-T-10}.\\
+\textbf{Actor:} Scrap user.\\
+\textbf{Preconditions:} At least one pantry item has an expiration date within the reminder window.\\
+\textbf{Main flow:}
+\begin{enumerate}
+\item The system notifies the user that an item is about to expire.
+\item The user opens the notification.
+\item The system shows recipes that use the expiring item, ranked by pantry match.
+\item The user selects a recipe, continuing to \UseCaseRef{UC-04}.
+\end{enumerate}
+\textbf{Alternate flows:} 3a. No recipe uses the item: the system suggests searching the community feed or contributed recipes.\\
+\textbf{Postconditions:} The user has a plan to use the ingredient before it spoils.
+
+\medskip\noindent\textbf{UC-09: Contribute a Recipe}\ArtifactLabel{UseCase}{UC-09}\index{UseCase!UC-09}\\
+\textbf{Requirements:} \RequirementRef{REQ-F-01}, \RequirementRef{REQ-F-07}, \RequirementRef{REQ-F-15}, \RequirementRef{REQ-NF-05}, \RequirementRef{REQ-C-01}, \RequirementRef{REQ-C-04}, \RequirementRef{REQ-T-10}.\\
+\textbf{Actor:} Scrap user.\\
+\textbf{Preconditions:} The user is logged in.\\
+\textbf{Main flow:}
+\begin{enumerate}
+\item The user selects \textit{Add recipe}.
+\item The user enters the title, ingredients, written steps, servings, time, and difficulty.
+\item The user optionally attaches a photo or video.
+\item The system validates that written steps are present, then publishes the recipe.
+\end{enumerate}
+\textbf{Alternate flows:} 3a. The file exceeds the upload size limit: the system asks the user to shorten or compress it. \quad 4a. Required fields are missing: the system highlights them and does not publish.\\
+\textbf{Postconditions:} The recipe is searchable by other users.
+
+\medskip\noindent\textbf{UC-10: Share a Dish and Browse the Community Feed}\ArtifactLabel{UseCase}{UC-10}\index{UseCase!UC-10}\\
+\textbf{Requirements:} \RequirementRef{REQ-F-01}, \RequirementRef{REQ-F-16}, \RequirementRef{REQ-NF-04}, \RequirementRef{REQ-C-01}, \RequirementRef{REQ-F-17}.\\
+\textbf{Actor:} Scrap user.\\
+\textbf{Preconditions:} The user is logged in.\\
+\textbf{Main flow:}
+\begin{enumerate}
+\item The user selects \textit{Share a dish} and uploads a photo.
+\item The user optionally links the post to a recipe and chooses whether it is public.
+\item The system publishes the post to the community feed.
+\item The user browses the feed and opens linked recipes (\UseCaseRef{UC-04}).
+\end{enumerate}
+\textbf{Alternate flows:} 2a. The user makes the post private: it is visible only on the user's own profile.\\
+\textbf{Postconditions:} The user's dish is shared, and the user has seen what others are cooking.
+
+\medskip\noindent\textbf{UC-11: Add Pantry Items by Photo}\ArtifactLabel{UseCase}{UC-11}\index{UseCase!UC-11}\\
+\textbf{Requirements:} \RequirementRef{REQ-F-02}, \RequirementRef{REQ-F-19}, \RequirementRef{REQ-NF-01}, \RequirementRef{REQ-NF-03}.\\
+\textbf{Actor:} Scrap user.\\
+\textbf{Preconditions:} The user is logged in and viewing the pantry screen.\\
+\textbf{Main flow:}
+\begin{enumerate}
+\item The user selects \textit{Add by photo} instead of typing ingredients in manually.
+\item The user takes a photo of their ingredients or uploads an existing photo.
+\item The system identifies candidate ingredients from the photo and lists them for confirmation.
+\item The user reviews the list, edits or removes any misidentified items, and confirms.
+\item The system adds the confirmed items to the pantry, continuing \UseCaseRef{UC-02}.
+\end{enumerate}
+\textbf{Alternate flows:} 3a. The system cannot confidently identify any items: it prompts the user to enter them manually instead. \quad 4a. The user removes an incorrectly identified item before confirming.\\
+\textbf{Postconditions:} The pantry is updated without the user typing each ingredient by hand.
+
+\medskip\noindent\textbf{UC-12: Get Notified Before an Ingredient Spoils}\ArtifactLabel{UseCase}{UC-12}\index{UseCase!UC-12}\\
+\textbf{Requirements:} \RequirementRef{REQ-F-14}, \RequirementRef{REQ-F-20}, \RequirementRef{REQ-NF-02}, \RequirementRef{REQ-T-07}, \RequirementRef{REQ-T-10}.\\
+\textbf{Actor:} Scrap user.\\
+\textbf{Preconditions:} The user has a fresh, unpackaged pantry item (such as a vegetable) for which no expiration date was entered manually.\\
+\textbf{Main flow:}
+\begin{enumerate}
+\item When the item is added, the system estimates its shelf life from its ingredient type.
+\item As the estimated shelf life nears its end, the system sends a push notification.
+\item The user opens the notification.
+\item The system shows recipes that use the expiring item, ranked by pantry match, continuing to \UseCaseRef{UC-04}.
+\end{enumerate}
+\textbf{Alternate flows:} 1a. The ingredient type is not recognized: the system asks the user to confirm or manually set an expiration date instead (\UseCaseRef{UC-02}).\\
+\textbf{Postconditions:} The user is alerted and offered a recipe before the ingredient spoils, without having to track expiration dates by hand.
+\end{sloppypar}

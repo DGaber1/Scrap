@@ -5,30 +5,119 @@
 \chapter{Mission Statement}\ChapterLabel{MissionStatement}
 \index{mission statement}
 \index{Chapter!Mission Statement}
-The mission of Scrap is to help people decide what to cook by maximizing the use of ingredients they already have while reducing unnecessary food waste. The application aims to make meal planning more affordable, convenient, and enjoyable by connecting users with recipes that fit their available ingredients, budget, and preferences.
+The mission of Scrap is to make cooking easy, affordable, fun, and less wasteful by helping people decide what to cook using the ingredients they already have. Scrap connects users with recipes that fit their available ingredients, budget, and preferences, and builds a social platform where users can share their own recipes, discover recipes from other home cooks, and feel connected to a broader community of people who enjoy cooking.
 
 \chapter{Key Drivers}\ChapterLabel{KeyDrivers}
 \index{key drivers}
 \index{Chapter!Key Drivers}
+Scrap is driven by four core values: making cooking easy, affordable, fun, and less wasteful. The drivers described below explain where these values come from and why each one matters to our team.
+
 The primary motivation for Scrap comes from our experiences as college students transitioning into apartments and becoming responsible for cooking and grocery shopping on our own. Cooking regularly can be challenging when balancing classes, work, social responsibilities, and other commitments. For students who are still developing their cooking skills, deciding what to make can become an additional source of stress, particularly when there are only a limited number of ingredients available.
 
 Budget is another major driver behind the proposed solution. College students often have limited disposable income and need to be thoughtful about how they spend money on groceries. Many existing recipes assume that users have access to a large variety of ingredients or require purchasing several items that may only be used once. This can make following a recipe more expensive than expected and can leave users with partially used ingredients that eventually expire. For students living alone or with a small number of roommates, this problem is especially noticeable because purchasing larger quantities of food does not always make sense for smaller portions.
 
 Another challenge we identified is the difficulty of finding recipes that accommodate what a person already has in their kitchen. Traditional recipe searches typically begin with a desired meal, causing users to search for a recipe first and then purchase the ingredients required to make it. Scrap approaches this problem from the opposite direction: users begin with what they already have. By entering their available ingredients, users can discover recipes that make use of those items and determine which additional ingredients, if any, they need to purchase.
 
-Food waste is also an important motivation for the project. Ingredients are frequently purchased with good intentions but are forgotten about or left unused until they expire. Scrap is intended to encourage users to think about their existing food inventory before purchasing additional groceries. Ranking recipes based on the percentage of ingredients a user already has can help users prioritize meals that use ingredients that might otherwise go to waste. In this way, the application connects personal benefits, such as saving money and reducing grocery trips, with a broader goal of reducing unnecessary food waste.
+Food waste is also an important motivation for the project. Food waste is a large and costly problem in the United States: over a third of the food produced is never eaten \cite{EPAFoodWasteCost}, and a large share of that waste happens at the household level, driven by over-purchasing, poor planning, and forgotten ingredients \cite{ReFEDProblem}. The cost to individual households is significant as well, and using up leftovers before they spoil is one of the most effective ways for a household to cut that cost down \cite{USDATellusLeftovers}. Ingredients are frequently purchased with good intentions but are forgotten about or left unused until they expire. Scrap is intended to encourage users to think about their existing food inventory before purchasing additional groceries. Ranking recipes based on the percentage of ingredients a user already has can help users prioritize meals that use ingredients that might otherwise go to waste. In this way, the application connects personal benefits, such as saving money and reducing grocery trips, with a broader goal of reducing unnecessary food waste.
 
-Finally, we want Scrap to be more than a basic recipe search engine. We envision the application as a social and engaging platform that makes deciding what to cook more enjoyable. Users will be able to search for recipes, explore recommendations, create grocery lists, and contribute their own recipes to the system. This user-driven approach could allow the recipe collection to grow while giving users a sense of participation in the platform.
+Finally, the social and enjoyable side of cooking is a key driver behind Scrap. We want the application to be more than a basic recipe search engine; we envision it as a social, community-driven platform that makes deciding what to cook fun rather than a chore. Users will be able to search for recipes, explore recommendations, create grocery lists, and contribute their own recipes to the system, as well as browse and draw inspiration from recipes shared by other users. This social, user-driven approach reflects our value of making cooking fun: it gives users a sense of participation and connection to a community of fellow home cooks, while also allowing the recipe collection to grow organically over time.
 
 \chapter{Key Constraints}\ChapterLabel{KeyConstraints}
 \index{key constraints}
 \index{Chapter!Key Constraints}
 One of the major constraints for Scrap is the existing competition in the food and recipe application market. There are already many established applications and websites that provide recipe searches, meal planning, grocery lists, ingredient-based searches, and other related features. Because of this, simply creating another recipe application may not provide enough differentiation. Our project will need to clearly define what makes Scrap useful and distinct, particularly its focus on maximizing ingredients that users already have and reducing food waste. The interface and functionality will need to support this central idea rather than simply reproducing features that are already common in existing applications.
 
-Another significant constraint is our team's development experience. While all three team members have experience developing websites and working with software development tools, we have not previously built a complete application of this type. Developing Scrap will therefore require us to learn and apply new technologies, development practices, and potentially unfamiliar frameworks. We will need to account for this learning curve when determining the scope of the project and deciding which features are realistic to implement within the available time.
+Another significant constraint is our team's development experience. While all three team members have experience developing websites and working with software development tools, we have not previously built a complete application of this type. Developing Scrap will therefore require us to learn and apply new technologies and development practices --- principally Swift, SwiftUI, and Supabase, the stack the team has chosen for this project --- along with other unfamiliar tools as they come up. We will need to account for this learning curve when determining the scope of the project and deciding which features are realistic to implement within the available time.
 
 The project is also constrained by the need to balance functionality with development complexity. Our initial vision includes ingredient-based recipe searches, filters, recipe rankings, grocery lists, and user-submitted recipes. Although these features would make the application more useful, implementing all of them successfully may require significant time and technical effort. We will need to prioritize the core functionality of the application and distinguish between essential features for the minimum viable product and features that could be added if time permits.
 
-Data management presents another potential constraint. The application will depend on a collection of recipes and their associated ingredients in order to provide meaningful recommendations. We will need to determine how recipes are stored, how ingredients are standardized, and how the system handles differences in ingredient names, quantities, and measurements. For example, a user's available ingredient may be entered differently from how that ingredient appears in a recipe. The system will need to account for these differences to ensure that recipe recommendations are accurate and useful.
+Data management presents another potential constraint. The application depends on a collection of recipes and their associated ingredients in order to provide meaningful recommendations. Rather than building a recipe database from scratch, the team has decided to source recipe and ingredient data from the Spoonacular API, merged with recipes users contribute directly, and to store it in a relational Supabase (Postgres) schema (see \hyperref[Chapter:Requirements]{Requirements}). The system will still need to account for differences in how an ingredient is named, measured, or spelled between a user's pantry and a recipe's ingredient list, so that recipe recommendations stay accurate.
 
 Finally, usability is an important constraint because the application is intended to be simple and convenient for users who may already be short on time. The core experience should allow users to quickly enter what they have and receive useful recommendations without requiring extensive setup. As we develop the application, we will need to balance the number of available filters and features with the simplicity of the interface. The final product should demonstrate the core concept of Scrap clearly while remaining achievable within the technical and time limitations of the project.
+
+\chapter{Development Plan}\ChapterLabel{DevelopmentPlan}
+\index{development plan}
+\index{Chapter!Development Plan}
+This chapter summarizes the technical plan the team is building Scrap against: the mobile application platform, the backend and data sources it depends on, the companion website, and how the team plans to develop and test the app. The specific requirements this plan is built from are detailed in \ChapterRef{Requirements}; this chapter describes the plan as a whole and the reasoning behind it.
+
+\section{Mobile Application}
+Scrap will be built natively for iOS using Swift and SwiftUI \cite{AppleSwiftUIDocs} (\RequirementRef{REQ-T-01}), rather than a cross-platform framework, so the team can build directly against Apple's current APIs and design guidelines (\RequirementRef{REQ-T-05}) without the overhead of a cross-platform abstraction layer. The app will follow an MVVM architecture that keeps ingredient-matching, ranking, and grocery-list logic separate from the SwiftUI view layer (\RequirementRef{REQ-T-02}), and will cache pantry contents and previously loaded recipes locally so core functionality keeps working offline (\RequirementRef{REQ-T-03}). A cross-platform framework such as Flutter, which would allow the team to also support Android, remains a possible future addition once the core iOS app is complete, but is out of scope for this milestone.
+
+\section{Backend}
+Scrap will use Supabase, a hosted Postgres database with built-in authentication and file storage, as its backend (\RequirementRef{REQ-T-08}), rather than the team building and hosting its own server. This lets the team focus development time on the app itself instead of backend infrastructure, while still getting a relational database, user accounts, and storage for user-uploaded photos and videos. The Supabase schema will include relational tables for users, pantry items, recipes, recipe ingredients, and grocery list items (\RequirementRef{REQ-T-09}), and the app will reach Supabase through its official Swift SDK over HTTPS \cite{SupabaseiOSQuickstart} (\RequirementRef{REQ-T-04}).
+
+\section{Recipe and Ingredient Data}
+Rather than building a recipe database from scratch, Scrap will source recipe and ingredient data from the Spoonacular API \cite{SpoonacularAPI}, including its ingredient-based search endpoint, merged with recipes users contribute directly (\RequirementRef{REQ-T-10}). The app will be built to handle an unexpected Spoonacular response --- missing fields, a rate-limit error, or no results --- without crashing or showing a blank screen (\RequirementRef{REQ-T-11}), since the app depends on a third-party service it does not control. As a bonus feature beyond the minimum viable product, the team may also add Open Food Facts as a free product-lookup source so users can scan a barcode to add an item to their pantry (\RequirementRef{REQ-F-18}).
+
+\section{Companion Website}
+In addition to the iOS app, the team will build and host a companion marketing website separately from the app --- a static site on Vercel or Netlify, sharing no codebase or backend with the app (\RequirementRef{REQ-T-13}). The website is a separate product intended to introduce Scrap to visitors rather than a part of the app's functionality, so it has no corresponding use case in \ChapterRef{UseCases}.
+
+\section{Workspace}
+We will use GitHub to keep our code in one place and work on the app together. Each person will have their own branch so we can work on different parts of the app without changing the main version before the work is ready. Once a feature is working, we can merge it into the main branch.
+
+We will also use shared documents for our report, research, and other project materials. GitHub Issues can be used to keep track of things that need to be fixed or completed (\RequirementRef{REQ-C-06}).
+
+For the actual app, we plan to use Xcode, Swift, and SwiftUI (\RequirementRef{REQ-T-01}). Supabase will be used for the backend (\RequirementRef{REQ-T-08}), and Spoonacular will provide the recipe and ingredient information (\RequirementRef{REQ-T-10}).
+
+\section{Communication Plan}
+We will check in with each other throughout the week instead of waiting until our next class or meeting to talk about the project. These check-ins will give us a chance to say what we have finished, what we are currently working on, and if we are stuck on anything.
+
+For quick questions and updates, we will use our group messaging platform. We will use GitHub for code, tasks (kanban board), and bugs, and shared documents for our report and research.
+
+If someone is falling behind or runs into a problem that affects another part of the project, we will let the group know as soon as possible. This will help us make changes early instead of finding out about a problem right before a deadline.
+
+\section{Risks and Assumptions}
+The team is assuming that Supabase's and Spoonacular's free tiers will remain available and sufficient for the scope of this project (\RequirementRef{REQ-C-01}); if either service changes its free-tier limits or pricing, the team would need to reduce usage, find a substitute, or revisit this constraint. The team is also assuming that the Spoonacular API's recipe and ingredient data is accurate and complete enough to support ingredient matching without extensive manual correction (\RequirementRef{REQ-T-10}), and that the two most recent major iOS releases cover enough of the team's own devices and any beta testers to develop and test against (\RequirementRef{REQ-T-01}).
+
+The team's biggest risk is unfamiliarity with the chosen stack: all three members are learning Swift, SwiftUI, and Supabase at the same time, which could slow early development more than a team already experienced with these tools (see Week Report 4 in \ChapterRef{WeeklyReports}). The team's contingency is to start with a small, well-scoped first feature and check in regularly so that one person's blockers do not stall the whole team, rather than discovering the problem only near a deadline. A second risk is dependence on the Spoonacular API as a third party the team does not control; an outage, a changed response format, or a failed request could make the app behave incorrectly unless it is built and tested against those failure cases ahead of time (\RequirementRef{REQ-T-11}). A third risk is scope: the team's initial feature list is broader than what can realistically be finished in the time available, which is why several features --- recipe video, leftover tracking, expiration alerts, and barcode entry --- have already been marked as bonus rather than required (\RequirementRef{REQ-F-07}, \RequirementRef{REQ-F-13}, \RequirementRef{REQ-F-14}, \RequirementRef{REQ-F-18}). A fourth risk is tooling access: SwiftUI (\RequirementRef{REQ-T-01}) only builds, previews, and runs inside Xcode, and Xcode only runs on macOS, but none of the three team members owns a Mac --- the team's only Mac access is through Stevens library computers, which are shared with other students and not always available. Treating Xcode as necessary for all day-to-day development would make that shared, limited resource a constant bottleneck. The team's mitigation is to split the codebase into two pieces: a platform-independent Swift package (ScrapCore) holding the data models, the recipe-matching and ranking logic, serving-size scaling, grocery list generation, and the networking layer, which the official Swift toolchain builds and tests on any team member's own Windows machine; and a thin SwiftUI layer (ScrapApp) that depends only on ScrapCore's own interfaces, which is the only part that actually requires a Mac. This confines library computer time to periodic batched sessions --- wiring already-written SwiftUI files into an Xcode project, previewing screens, and running the simulator --- rather than continuous use, while the team's day-to-day logic development and testing can happen on any machine, at any time.
+
+\section{Timeline and Milestones}
+The team is planning the fall semester in two-week increments, building toward a complete working prototype by early December. Spring semester goals are further out and broader, so they are planned one month at a time instead. Where a checkpoint below is also an official 423-IDE401/424-IDE402 course milestone, it is labeled as such.
+
+\begin{tabularx}{\linewidth}{L{2.3cm}Y}
+\caption{Fall 2026: Biweekly Checkpoints\label{Table:FallTimeline}}\\
+\toprule
+\textbf{Date} & \textbf{Goal}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Date} & \textbf{Goal}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{\small\itshape Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+September 24, 2026 & \textbf{Milestone 1: Design Proposal.} This report is the team's Milestone 1 submission (\VERSION), presented to the class this week, covering the mission, key drivers and constraints, development plan, user stories, requirements, use cases, and traceability matrix described above.\\
+October 8, 2026 & The Xcode project is set up and connected to the Supabase backend (\RequirementRef{REQ-T-08}); the first app screens are in progress.\\
+October 22, 2026 & The team's first end-to-end slice is working: pantry entry connected to a ranked Spoonacular search result.\\
+November 5, 2026 & The remaining core screens (grocery list generation, recipe details) are built, and the Supabase schema (\RequirementRef{REQ-T-09}) is fully wired up.\\
+November 19, 2026 & \textbf{Milestone 2: Preliminary Design Review.} The design, finalized concept evaluation, and analysis are documented for review.\\
+December 3, 2026 & \textbf{Working prototype complete.} Pantry entry, ingredient-based recipe search and ranking, and grocery list generation all function together, ahead of winter break.\\
+\end{tabularx}
+
+\begin{tabularx}{\linewidth}{L{2.3cm}Y}
+\caption{Spring 2027: Monthly Goals\label{Table:SpringTimeline}}\\
+\toprule
+\textbf{Month} & \textbf{Goal}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Month} & \textbf{Goal}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{\small\itshape Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+January 2027 & The team recruits a small group of beta users and begins testing through Apple TestFlight (\RequirementRef{REQ-T-12}).\\
+February 2027 & \textbf{Milestone 3: Performance and Cost Review with Alpha Prototype Demonstration.} An alpha version with every core functional requirement (\ChapterRef{Requirements}) is complete, and the team iterates on the feedback gathered from January's beta testing.\\
+March 2027 & \textbf{Milestone 4: Optimized Design Review with Beta Prototype Demonstration.} Beta testing and iteration continue, and the team begins growing an initial user base ahead of a public launch.\\
+April 2027 & The team continues iterating on the product and growing the user base, and prepares the final report and demo.\\
+May 2027 & \textbf{Milestone 5: Submission of the Final Report.} The final report is due, including test evidence, the completed companion website (\RequirementRef{REQ-T-13}), and the results of the team's beta testing and user-growth efforts.\\
+\end{tabularx}
+
+\section{Testing Plan}
+Scrap will be tested through a mix of manual testing and automated checks. Ingredient-matching, ranking, and grocery-list logic, including the Supabase queries behind them, will be covered by XCTest unit tests, and core flows such as account creation and recipe search will be covered by XCUITest UI tests (\RequirementRef{REQ-T-06}). The team will also manually check the app's integration with the Spoonacular API. Before any public release, the app will be distributed to a small group of test users through Apple TestFlight to gather feedback ahead of a general launch (\RequirementRef{REQ-T-12}), and defects found during testing will be tracked using GitHub Issues in the project's existing repository (\RequirementRef{REQ-C-06}). The specific verification methods, validation scenarios, and example test cases that will exercise this plan against Scrap's requirements are detailed in \ChapterRef{VerificationValidationTesting}.

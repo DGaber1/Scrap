@@ -1,0 +1,58 @@
+\chapter{AI Prompt Log}\ChapterLabel{AIPromptLog}
+\index{AI prompt log}
+\index{Chapter!AI Prompt Log}
+
+\section{How to Use This Appendix}
+Use this log when AI assistance materially affects requirements, architecture, code, tests, or release evidence. Keep each entry to two sentences: what the AI did and why, and any correction the team still needs to make.
+
+\section{Log Entries}
+
+\begin{itemize}[leftmargin=1.4em]
+
+\item \textbf{September 8, 2026} (Claude, Cowork). Added a Team Declaration chapter and populated Mission Statement, Key Drivers, and Key Constraints from the team's own proposal, bios, and drafted text. The team supplied all content and reviewed the compiled PDF for page limits and formatting.
+
+\item \textbf{September 10, 2026} (Claude, Cowork). Produced a trimmed submission copy containing only the chapters completed so far, as source files. The AI compiled it and reported the page count and table of contents for the team to confirm.
+
+\item \textbf{September 10, 2026} (Claude, Cowork). Added Appendix A, Weekly Reports, formatting the team's verbatim Week 1 report text into the template's four-part structure. No content was changed beyond formatting and chapter placement.
+
+\item \textbf{September 17, 2026} (Claude, Cowork). Corrected the submission label from Milestone 1 to Milestone 0 throughout, and rewrote Mission Statement and Key Drivers around the team's four core values and the social aspect of Scrap. The team supplied the correction and the core values directly.
+
+\item \textbf{September 22, 2026} (Claude, Cowork). Added User Stories, Requirements, Use Cases, and Traceability Matrix chapters, transcribed from a team-supplied preview built on the Week 3 interviews. The team supplied all substantive content; the AI handled the LaTeX structure and cross-referencing.
+
+\item \textbf{September 22, 2026} (Claude, Cowork). Reversed the Milestone 0 label back to Milestone 1, and changed REQ-F-07, REQ-F-13, and REQ-F-14 from ``shall'' to ``could'' as bonus features. Both corrections were supplied directly by the team.
+
+\item \textbf{September 22, 2026} (Claude, Cowork). Rewrote the end-user stories in ``As a / I want / so that'' form, removed interviewee names, added six stakeholder stories (developer, business, community moderation), and added a Technical Requirements section (REQ-T-01--07) and a content-moderation requirement (REQ-F-17). The team specified the format and stakeholder categories; the AI chose the specific stories and technical requirements, which the team should review.
+
+\item \textbf{September 22, 2026} (Claude, Cowork). Trimmed all fourteen user stories to a single sentence each, per the team's feedback that the previous rewrite was still too wordy. No requirement mappings changed.
+
+\item \textbf{September 23, 2026} (Claude, Cowork). Aligned the report with the team's development plan (Swift/SwiftUI, Supabase, Spoonacular, Open Food Facts, a companion website, and the team's testing/release approach), revising REQ-C-01/REQ-C-04 and REQ-T-01/03/04/06 and adding REQ-F-18, REQ-C-06, and REQ-T-08--13. The team supplied the complete technical plan; the AI determined how to phrase and cross-reference each requirement.
+
+\item \textbf{September 23, 2026} (Claude, Cowork). Added a Week 4 report, drafted from the session's own work tightening requirements and finalizing the technical plan since the team asked for one without dictating the text, and condensed every entry in this log to two sentences or fewer. The team should review the Week 4 report's wording for accuracy before treating it as final.
+
+\item \textbf{September 23, 2026} (Claude, Cowork). Added a Development Plan chapter after Key Constraints, summarizing the mobile application, backend, recipe data source, companion website, development method, and testing plan already detailed in Requirements. The team requested the chapter; its content is drawn entirely from the team's existing technical plan and requirements, with no new decisions made.
+
+\item \textbf{September 24, 2026} (Claude, Cowork). Added a Roles and Responsibilities section to Team Declaration, proposing a lead role per member and revising the assignments per the team's direction. The team chose the final role split; the AI drafted the supporting rationale and wording.
+
+\item \textbf{September 24, 2026} (Claude, Cowork). Replaced the Development Plan chapter's Development Method section with Workspace and Communication Plan sections, transcribing the team's own description of their GitHub workflow, shared documents, tooling, and check-in practices. The team supplied the content directly; the AI formatted it and added requirement cross-references.
+
+\item \textbf{September 24, 2026} (Claude, Cowork). Added three team-supplied sources on food waste as citations in Key Drivers and the bibliography, and added Risks and Assumptions and Timeline and Milestones sections to the Development Plan chapter, the latter modeled on the full template's official course milestone schedule. The AI drafted the risk analysis and milestone targets from the report's existing content; the team should review both for accuracy.
+
+\item \textbf{September 24, 2026} (Claude, Cowork). Revised the Timeline and Milestones section with the team's own targets: a working prototype by early December, and a spring semester centered on beta user testing, iteration, and growing an initial user base. The team supplied these targets directly; the AI wove them into the existing milestone descriptions.
+
+\item \textbf{September 24, 2026} (Claude, Cowork). Rebuilt Timeline and Milestones as two dated tables, per the team's request for two-week fall checkpoints and broader monthly spring goals with specific dates. The team set the cadence and end points (prototype by December, beta users starting in January); the AI filled in the intermediate checkpoint content and dates.
+
+\item \textbf{September 24, 2026} (Claude, Cowork). Added citations for Apple's SwiftUI documentation, the Spoonacular API, and Supabase's iOS/SwiftUI quickstart guide, verified against their live pages and cited alongside the matching technology in the Development Plan chapter. The team supplied the three links directly.
+
+\item \textbf{September 29, 2026} (Claude, Cowork). Added a Verification, Validation, and Testing chapter (a Verification Register, a Validation Register, and example test cases) covering Scrap's existing requirements, and added two bonus requirements and two use cases for photo-based pantry entry and automatic ingredient shelf-life reminders, per usability feedback the team received after presenting Milestone 1. The team supplied the feedback and the two feature ideas directly; the AI chose the specific verification methods, register rows, test cases, and use-case wording, which the team should review.
+
+\item \textbf{September 29, 2026} (Claude, Cowork). Widened the Source column in the User Stories to Requirements table so each entry fits on one line instead of wrapping. The team requested the formatting fix directly.
+
+\item \textbf{October 1, 2026} (Claude, Cowork). Added the Week 5 report to Appendix A, formatting the team's account of this week's screen sketches and AI-generated design comments, and next week's plan, into the report's four-part structure. The team supplied all of the content directly.
+
+\item \textbf{October 7, 2026} (Claude, Cowork). Added a fourth risk and mitigation to Risks and Assumptions, after the team identified that no member owns a Mac and asked how to minimize reliance on shared library computers while still building the planned Swift/SwiftUI app. The team's situation was supplied directly; the AI proposed and wrote the specific mitigation (splitting the codebase into a cross-platform ScrapCore package and a Mac-only SwiftUI shell) and the accompanying code scaffold, which the team should review.
+
+\item \textbf{October 7, 2026} (Claude, Cowork). Added the Week 6 report to Appendix A, narrating this week's finding that there is no solid way to use Xcode without an actual Mac, the ScrapCore/ScrapApp split decision, and the resulting code scaffold, into the report's four-part structure. The team supplied the events directly; the AI drafted the wording, which the team should review for accuracy.
+
+\item \textbf{October 8, 2026} (Claude, Cowork). Updated the Week 6 report's next-week plan and action items to include planning the app's MVVM architecture, namespace/class naming conventions, and UML diagrams, and added to Issues and Risks that the professor is reaching out about borrowing a Mac through the program. The team supplied both additions directly.
+
+\end{itemize}

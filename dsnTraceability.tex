@@ -1,0 +1,189 @@
+\chapter{Traceability Matrix}\ChapterLabel{Traceability}
+\index{traceability matrix}
+\index{Chapter!Traceability Matrix}
+
+\noindent The tables below give the complete, reciprocal mapping between \hyperref[Chapter:UserStories]{User Stories}, \hyperref[Chapter:Requirements]{Requirements}, and \hyperref[Chapter:UseCases]{Use Cases}. Every identifier is a link to its definition. Every requirement maps to at least one use case, and every use case maps to at least one requirement, with one exception: \RequirementRef{REQ-T-13} (the companion website) shares no use cases with the app, since it is a separate product.
+
+\section{User Stories to Requirements}
+
+\begin{tabularx}{\linewidth}{L{1.5cm}L{4.4cm}Y}
+\caption{User Stories to Requirements\label{Table:TraceUserStories}}\\
+\toprule
+\textbf{Story} & \textbf{Source} & \textbf{Requirements}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Story} & \textbf{Source} & \textbf{Requirements}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\small\itshape Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\UserStoryRef{US-01} & Interviewee 1 & \RequirementRef{REQ-F-03}, \RequirementRef{REQ-F-04}, \RequirementRef{REQ-F-09}, \RequirementRef{REQ-F-11}, \RequirementRef{REQ-F-12}\\
+\UserStoryRef{US-02} & Interviewee 1 & \RequirementRef{REQ-F-01}, \RequirementRef{REQ-F-15}, \RequirementRef{REQ-F-16}\\
+\UserStoryRef{US-03} & Interviewee 2 & \RequirementRef{REQ-F-04}, \RequirementRef{REQ-F-05}, \RequirementRef{REQ-F-06}, \RequirementRef{REQ-F-07}, \RequirementRef{REQ-NF-01}\\
+\UserStoryRef{US-04} & Interviewee 2 & \RequirementRef{REQ-F-02}, \RequirementRef{REQ-F-12}, \RequirementRef{REQ-F-13}, \RequirementRef{REQ-F-16}\\
+\UserStoryRef{US-05} & Interviewee 3 & \RequirementRef{REQ-F-02}, \RequirementRef{REQ-F-03}, \RequirementRef{REQ-F-06}, \RequirementRef{REQ-F-08}, \RequirementRef{REQ-F-10}, \RequirementRef{REQ-F-14}\\
+\UserStoryRef{US-06} & Interviewee 3 & \RequirementRef{REQ-F-05}, \RequirementRef{REQ-F-07}, \RequirementRef{REQ-NF-01}, \RequirementRef{REQ-NF-03}\\
+\UserStoryRef{US-07} & Interviewee 4 & \RequirementRef{REQ-F-02}, \RequirementRef{REQ-F-09}, \RequirementRef{REQ-F-10}, \RequirementRef{REQ-F-12}, \RequirementRef{REQ-F-13}\\
+\UserStoryRef{US-08} & Interviewee 4 & \RequirementRef{REQ-F-03}, \RequirementRef{REQ-F-05}, \RequirementRef{REQ-F-07}, \RequirementRef{REQ-F-14}\\
+\UserStoryRef{US-09} & Derived (developer) & \RequirementRef{REQ-T-02}, \RequirementRef{REQ-T-04}\\
+\UserStoryRef{US-10} & Derived (developer) & \RequirementRef{REQ-T-06}\\
+\UserStoryRef{US-11} & Derived (developer) & \RequirementRef{REQ-T-03}\\
+\UserStoryRef{US-12} & Derived (business) & \RequirementRef{REQ-T-01}, \RequirementRef{REQ-T-05}\\
+\UserStoryRef{US-13} & Derived (business) & \RequirementRef{REQ-T-07}, \RequirementRef{REQ-F-14}\\
+\UserStoryRef{US-14} & Derived (community) & \RequirementRef{REQ-F-17}\\
+\end{tabularx}
+
+\section{Functional Requirements to Stories and Use Cases}
+
+\begin{tabularx}{\linewidth}{L{1.9cm}L{2.6cm}L{2.5cm}Y}
+\caption{Functional Requirements to Stories and Use Cases\label{Table:TraceFunctional}}\\
+\toprule
+\textbf{Req.} & \textbf{Name} & \textbf{User stories} & \textbf{Use cases}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Req.} & \textbf{Name} & \textbf{User stories} & \textbf{Use cases}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{\small\itshape Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\RequirementRef{REQ-F-01} & User accounts & \UserStoryRef{US-02} & \UseCaseRef{UC-01}, \UseCaseRef{UC-09}, \UseCaseRef{UC-10}\\
+\RequirementRef{REQ-F-02} & Pantry inventory & \UserStoryRef{US-04}, \UserStoryRef{US-05}, \UserStoryRef{US-07} & \UseCaseRef{UC-02}, \UseCaseRef{UC-05}, \UseCaseRef{UC-07}\\
+\RequirementRef{REQ-F-03} & Ingredient-match search & \UserStoryRef{US-01}, \UserStoryRef{US-05}, \UserStoryRef{US-08} & \UseCaseRef{UC-03}, \UseCaseRef{UC-08}\\
+\RequirementRef{REQ-F-04} & Recipe filters & \UserStoryRef{US-01}, \UserStoryRef{US-03} & \UseCaseRef{UC-03}\\
+\RequirementRef{REQ-F-05} & Complete recipe view & \UserStoryRef{US-03}, \UserStoryRef{US-06}, \UserStoryRef{US-08} & \UseCaseRef{UC-04}\\
+\RequirementRef{REQ-F-06} & Recipe facts & \UserStoryRef{US-03}, \UserStoryRef{US-05} & \UseCaseRef{UC-04}\\
+\RequirementRef{REQ-F-07} & Recipe video & \UserStoryRef{US-03}, \UserStoryRef{US-06}, \UserStoryRef{US-08} & \UseCaseRef{UC-04}, \UseCaseRef{UC-09}\\
+\RequirementRef{REQ-F-08} & Ingredient substitutions & \UserStoryRef{US-05} & \UseCaseRef{UC-05}\\
+\RequirementRef{REQ-F-09} & Grocery list & \UserStoryRef{US-01}, \UserStoryRef{US-07} & \UseCaseRef{UC-06}\\
+\RequirementRef{REQ-F-10} & Estimated cost & \UserStoryRef{US-05}, \UserStoryRef{US-07} & \UseCaseRef{UC-06}\\
+\RequirementRef{REQ-F-11} & Equipment profile & \UserStoryRef{US-01} & \UseCaseRef{UC-01}, \UseCaseRef{UC-03}\\
+\RequirementRef{REQ-F-12} & Serving scaling & \UserStoryRef{US-01}, \UserStoryRef{US-04}, \UserStoryRef{US-07} & \UseCaseRef{UC-07}\\
+\RequirementRef{REQ-F-13} & Leftover tracking & \UserStoryRef{US-04}, \UserStoryRef{US-07} & \UseCaseRef{UC-07}\\
+\RequirementRef{REQ-F-14} & Expiration alerts & \UserStoryRef{US-05}, \UserStoryRef{US-08} & \UseCaseRef{UC-02}, \UseCaseRef{UC-08}\\
+\RequirementRef{REQ-F-15} & Recipe contribution & \UserStoryRef{US-02} & \UseCaseRef{UC-09}\\
+\RequirementRef{REQ-F-16} & Community feed & \UserStoryRef{US-02}, \UserStoryRef{US-04} & \UseCaseRef{UC-10}\\
+\RequirementRef{REQ-F-17} & Content moderation & \UserStoryRef{US-14} & \UseCaseRef{UC-10}\\
+\RequirementRef{REQ-F-18} & Barcode pantry entry & Derived & \UseCaseRef{UC-02}\\
+\RequirementRef{REQ-F-19} & Photo-based pantry entry & Derived (presentation feedback) & \UseCaseRef{UC-02}, \UseCaseRef{UC-11}\\
+\RequirementRef{REQ-F-20} & Shelf-life estimation and reminders & Derived (presentation feedback) & \UseCaseRef{UC-02}, \UseCaseRef{UC-08}, \UseCaseRef{UC-12}\\
+\end{tabularx}
+
+\section{Non-Functional Requirements to Stories and Use Cases}
+
+\begin{tabularx}{\linewidth}{L{2.1cm}L{2.6cm}L{2.5cm}Y}
+\caption{Non-Functional Requirements to Stories and Use Cases\label{Table:TraceNonFunctional}}\\
+\toprule
+\textbf{Req.} & \textbf{Name} & \textbf{User stories} & \textbf{Use cases}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Req.} & \textbf{Name} & \textbf{User stories} & \textbf{Use cases}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{\small\itshape Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\RequirementRef{REQ-NF-01} & Usability & \UserStoryRef{US-03}, \UserStoryRef{US-06} & \UseCaseRef{UC-03}, \UseCaseRef{UC-04}\\
+\RequirementRef{REQ-NF-02} & Performance & Derived & \UseCaseRef{UC-03}, \UseCaseRef{UC-08}\\
+\RequirementRef{REQ-NF-03} & Mobile responsiveness & \UserStoryRef{US-06} & \UseCaseRef{UC-02}, \UseCaseRef{UC-04}, \UseCaseRef{UC-06}\\
+\RequirementRef{REQ-NF-04} & Security and privacy & Derived & \UseCaseRef{UC-01}, \UseCaseRef{UC-10}\\
+\RequirementRef{REQ-NF-05} & Accessibility & Derived & \UseCaseRef{UC-04}, \UseCaseRef{UC-09}\\
+\end{tabularx}
+
+\section{Constraints to Stories and Use Cases}
+
+\begin{tabularx}{\linewidth}{L{1.9cm}L{2.2cm}L{2.5cm}Y}
+\caption{Constraints to Stories and Use Cases\label{Table:TraceConstraints}}\\
+\toprule
+\textbf{Req.} & \textbf{Name} & \textbf{User stories} & \textbf{Use cases}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Req.} & \textbf{Name} & \textbf{User stories} & \textbf{Use cases}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{\small\itshape Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\RequirementRef{REQ-C-01} & Budget & \hyperref[Chapter:KeyConstraints]{Key Constraints} & \UseCaseRef{UC-03}, \UseCaseRef{UC-09}, \UseCaseRef{UC-10}\\
+\RequirementRef{REQ-C-02} & Schedule & \hyperref[Chapter:KeyConstraints]{Key Constraints} & All (\UseCaseRef{UC-01}--\UseCaseRef{UC-10})\\
+\RequirementRef{REQ-C-03} & Team size & \hyperref[Chapter:KeyConstraints]{Key Constraints} & All (\UseCaseRef{UC-01}--\UseCaseRef{UC-10})\\
+\RequirementRef{REQ-C-04} & Data sources & \hyperref[Chapter:KeyConstraints]{Key Constraints} & \UseCaseRef{UC-04}, \UseCaseRef{UC-09}\\
+\RequirementRef{REQ-C-05} & Price data & \hyperref[Chapter:KeyConstraints]{Key Constraints} & \UseCaseRef{UC-06}\\
+\RequirementRef{REQ-C-06} & Bug tracking & Derived & All (\UseCaseRef{UC-01}--\UseCaseRef{UC-10})\\
+\end{tabularx}
+
+\section{Technical Requirements to Stories and Use Cases}
+
+\begin{tabularx}{\linewidth}{L{2.1cm}L{2.6cm}L{2.5cm}Y}
+\caption{Technical Requirements to Stories and Use Cases\label{Table:TraceTechnical}}\\
+\toprule
+\textbf{Req.} & \textbf{Name} & \textbf{User stories} & \textbf{Use cases}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Req.} & \textbf{Name} & \textbf{User stories} & \textbf{Use cases}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{\small\itshape Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\RequirementRef{REQ-T-01} & Native platform & \UserStoryRef{US-12} & All (\UseCaseRef{UC-01}--\UseCaseRef{UC-10})\\
+\RequirementRef{REQ-T-02} & MVVM architecture & \UserStoryRef{US-09} & \UseCaseRef{UC-03}, \UseCaseRef{UC-06}\\
+\RequirementRef{REQ-T-03} & Offline-first persistence & \UserStoryRef{US-11} & \UseCaseRef{UC-02}, \UseCaseRef{UC-03}\\
+\RequirementRef{REQ-T-04} & API and networking & \UserStoryRef{US-09} & All (\UseCaseRef{UC-01}--\UseCaseRef{UC-10})\\
+\RequirementRef{REQ-T-05} & Platform guidelines & \UserStoryRef{US-12} & All (\UseCaseRef{UC-01}--\UseCaseRef{UC-10})\\
+\RequirementRef{REQ-T-06} & Automated testing & \UserStoryRef{US-10} & \UseCaseRef{UC-01}, \UseCaseRef{UC-03}, \UseCaseRef{UC-06}\\
+\RequirementRef{REQ-T-07} & Push notifications & \UserStoryRef{US-13} & \UseCaseRef{UC-08}\\
+\RequirementRef{REQ-T-08} & Backend platform & Derived & All (\UseCaseRef{UC-01}--\UseCaseRef{UC-10})\\
+\RequirementRef{REQ-T-09} & Database schema & Derived & \UseCaseRef{UC-02}, \UseCaseRef{UC-03}, \UseCaseRef{UC-06}\\
+\RequirementRef{REQ-T-10} & Recipe data source & Derived & \UseCaseRef{UC-03}, \UseCaseRef{UC-04}, \UseCaseRef{UC-08}, \UseCaseRef{UC-09}\\
+\RequirementRef{REQ-T-11} & Third-party API resilience & Derived & \UseCaseRef{UC-03}, \UseCaseRef{UC-04}\\
+\RequirementRef{REQ-T-12} & Beta distribution & Derived & All (\UseCaseRef{UC-01}--\UseCaseRef{UC-10})\\
+\RequirementRef{REQ-T-13} & Companion website & Derived & N/A (separate product)\\
+\end{tabularx}
+
+\section{Use Cases to Requirements}
+
+\begin{tabularx}{\linewidth}{L{1.6cm}L{3.4cm}Y}
+\caption{Use Cases to Requirements\label{Table:TraceUseCases}}\\
+\toprule
+\textbf{Use case} & \textbf{Name} & \textbf{Requirements}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Use case} & \textbf{Name} & \textbf{Requirements}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\small\itshape Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\UseCaseRef{UC-01} & Create Account and Kitchen Profile & \RequirementRef{REQ-F-01}, \RequirementRef{REQ-F-11}, \RequirementRef{REQ-NF-04}, \RequirementRef{REQ-T-06}\\
+\UseCaseRef{UC-02} & Manage Pantry & \RequirementRef{REQ-F-02}, \RequirementRef{REQ-F-14}, \RequirementRef{REQ-F-18}, \RequirementRef{REQ-NF-03}, \RequirementRef{REQ-T-03}, \RequirementRef{REQ-T-09}\\
+\UseCaseRef{UC-03} & Find Recipes from On-Hand Ingredients & \RequirementRef{REQ-F-03}, \RequirementRef{REQ-F-04}, \RequirementRef{REQ-F-11}, \RequirementRef{REQ-NF-01}, \RequirementRef{REQ-NF-02}, \RequirementRef{REQ-C-01}, \RequirementRef{REQ-T-02}, \RequirementRef{REQ-T-03}, \RequirementRef{REQ-T-06}, \RequirementRef{REQ-T-09}, \RequirementRef{REQ-T-10}, \RequirementRef{REQ-T-11}\\
+\UseCaseRef{UC-04} & View Recipe Details & \RequirementRef{REQ-F-05}, \RequirementRef{REQ-F-06}, \RequirementRef{REQ-F-07}, \RequirementRef{REQ-NF-01}, \RequirementRef{REQ-NF-03}, \RequirementRef{REQ-NF-05}, \RequirementRef{REQ-C-04}, \RequirementRef{REQ-T-10}, \RequirementRef{REQ-T-11}\\
+\UseCaseRef{UC-05} & Substitute a Missing Ingredient & \RequirementRef{REQ-F-02}, \RequirementRef{REQ-F-08}\\
+\UseCaseRef{UC-06} & Generate Grocery List & \RequirementRef{REQ-F-09}, \RequirementRef{REQ-F-10}, \RequirementRef{REQ-NF-03}, \RequirementRef{REQ-C-05}, \RequirementRef{REQ-T-02}, \RequirementRef{REQ-T-06}, \RequirementRef{REQ-T-09}\\
+\UseCaseRef{UC-07} & Scale Servings and Log Leftovers & \RequirementRef{REQ-F-02}, \RequirementRef{REQ-F-12}, \RequirementRef{REQ-F-13}\\
+\UseCaseRef{UC-08} & Use Up Expiring Ingredients & \RequirementRef{REQ-F-03}, \RequirementRef{REQ-F-14}, \RequirementRef{REQ-NF-02}, \RequirementRef{REQ-T-07}, \RequirementRef{REQ-T-10}\\
+\UseCaseRef{UC-09} & Contribute a Recipe & \RequirementRef{REQ-F-01}, \RequirementRef{REQ-F-07}, \RequirementRef{REQ-F-15}, \RequirementRef{REQ-NF-05}, \RequirementRef{REQ-C-01}, \RequirementRef{REQ-C-04}, \RequirementRef{REQ-T-10}\\
+\UseCaseRef{UC-10} & Share a Dish and Browse the Community Feed & \RequirementRef{REQ-F-01}, \RequirementRef{REQ-F-16}, \RequirementRef{REQ-NF-04}, \RequirementRef{REQ-C-01}, \RequirementRef{REQ-F-17}\\
+\UseCaseRef{UC-11} & Add Pantry Items by Photo & \RequirementRef{REQ-F-02}, \RequirementRef{REQ-F-19}, \RequirementRef{REQ-NF-01}, \RequirementRef{REQ-NF-03}\\
+\UseCaseRef{UC-12} & Get Notified Before an Ingredient Spoils & \RequirementRef{REQ-F-14}, \RequirementRef{REQ-F-20}, \RequirementRef{REQ-NF-02}, \RequirementRef{REQ-T-07}, \RequirementRef{REQ-T-10}\\
+\end{tabularx}

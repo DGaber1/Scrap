@@ -1,0 +1,137 @@
+\part{Appendices}
+
+\chapter{Weekly Reports}\ChapterLabel{WeeklyReports}
+\index{weekly reports}
+\index{Chapter!Weekly Reports}
+Add the newest week's report as a new section at the top of this chapter. Retain every prior week's report so that the team's weekly progress remains a complete, auditable record.
+
+\section{Week Report 6 (October 7, 2026)}
+
+\noindent\textbf{1. What We Did This Past Week}
+
+This week, we looked into whether there was a solid way to build and run our SwiftUI app without needing an actual Mac, since going in we had assumed some kind of workaround or cross-platform tool would let us use Xcode without one. After researching this, we found that there isn't a reliable way to do that --- Xcode and SwiftUI genuinely only run on macOS, and our only access to a Mac is through shared Stevens library computers. Since we can't treat those library computers as something we can use constantly, we decided to split our codebase into two pieces: ScrapCore, a platform-independent Swift package holding our data models, recipe-matching logic, and networking code, which we can build and test on our own Windows machines; and ScrapApp, the SwiftUI screens themselves, which is the only part that actually needs a Mac. We used AI to scaffold both pieces following our existing requirements and the UI designs we have been commenting on, including a first pass at our core screens and a set of unit tests for the matching, grocery list, and serving-scaling logic. We also added this constraint, and our plan to minimize it, as a new risk in our report's Risks and Assumptions section.
+
+\noindent\textbf{2. What We Will Do Next Week}
+
+Next week, we plan to run and fix up the scaffolded ScrapCore package on our own machines, since none of us has compiled it yet, and schedule our first library Mac session to set up the real Xcode project and wire in the SwiftUI screens. We also still plan to look into the requirements of our operations stakeholder and research our deployment approach and Swift-specific edge cases and constraints, which we did not get to this week. In addition, we want to plan out the specifics of how we want our code itself to be written --- our MVVM architecture pattern, naming conventions for namespaces and classes, and UML diagrams laying out the app's structure --- so that as we start building for real, all three of us are writing consistent, compatible code rather than settling these conventions ad hoc as we go.
+
+\noindent\textbf{3. Action Items}
+\begin{itemize}
+\item Run and fix up the ScrapCore package on our own Windows machines.
+\item Schedule and complete our first library Mac session to create the Xcode project and wire in the SwiftUI screens.
+\item Gather the requirements of our operations stakeholder.
+\item Research deployment options, including whether to use containers, and Swift-specific edge cases and constraints.
+\item Plan the specifics of how our code should be written: our MVVM architecture pattern, namespace and class naming conventions, and UML diagrams for the app's structure.
+\end{itemize}
+
+\noindent\textbf{4. Issues and Risks}
+
+Because none of us has compiled any of this code yet, we expect to run into some build errors when we first try --- we are treating that as normal first-pass work rather than a sign that our approach is wrong, and are setting aside time early next week to work through whatever comes up. More broadly, our continued reliance on shared library computers for anything involving Xcode remains a risk we are tracking in our Risks and Assumptions section. On that front, our professor is also reaching out to see if the program has a Mac we would be able to borrow, which would help reduce that reliance if it comes through.
+
+\section{Week Report 5 (October 1, 2026)}
+
+\noindent\textbf{1. What We Did This Past Week}
+
+This week, we met as a team and sketched out our initial app screens by hand, talking through our UI design choices together as we went. We then used AI to generate sample screens and visual designs based on those sketches, and are leaving thorough comments on each generated screen noting what we want changed, removed, or added before any of it is treated as final.
+
+\noindent\textbf{2. What We Will Do Next Week}
+
+Next week, we plan to look into more logistical questions, starting with the requirements of our operations stakeholder, and to research how to actually achieve some of the features we want in practice --- including our deployment approach (such as whether to containerize any part of our backend or companion website), along with edge cases and constraints specific to building in Swift.
+
+\noindent\textbf{3. Action Items}
+\begin{itemize}
+\item Finish reviewing the AI-generated sample screens and leave specific comments on each one.
+\item Gather the requirements of our operations stakeholder.
+\item Research deployment options, including whether to use containers, for our backend and companion website.
+\item Identify edge cases and Swift-specific constraints relevant to the features we have planned.
+\end{itemize}
+
+\noindent\textbf{4. Issues and Risks}
+
+Because we are starting from AI-generated screens rather than designing every screen from scratch, we need to make sure our comments are specific and thorough enough that the final design still matches our own vision instead of drifting toward a generic look. We will address this by reviewing everyone's comments together as a team before treating any screen as finished.
+
+\section{Week Report 4 (September 22, 2026)}
+
+\noindent\textbf{1. What We Did This Past Week}
+
+This week, we tightened up our requirements and use cases based on our Week 3 interview findings, marking the recipe video, leftover tracking, and expiration alert features as bonus rather than required, and rewriting our user stories to be more concise. We also finalized our technical plan: a native iOS app built in Swift and SwiftUI, backed by Supabase for our database, authentication, and storage, and Spoonacular for recipe and ingredient data, along with our testing approach and a plan for a companion website. We documented that plan in the report as a Development Plan chapter, along with our team roles and responsibilities, our GitHub workspace and communication practices, a risks and assumptions section citing outside research on the cost of food waste, and a timeline tied to our course milestones.
+
+\noindent\textbf{2. What We Will Do Next Week}
+
+Next week, we plan to begin implementation using our chosen stack, starting with a first end-to-end slice of the app (pantry entry connected to Spoonacular search), and continue preparing our demo presentation.
+
+\noindent\textbf{3. Action Items}
+\begin{itemize}
+\item Set up the Xcode project and connect it to our Supabase backend.
+\item Build a first end-to-end slice: pantry entry through to a ranked recipe result.
+\item Continue preparing our demo presentation.
+\end{itemize}
+
+\noindent\textbf{4. Issues and Risks}
+
+Because all three of us are learning Swift, SwiftUI, and Supabase at the same time, our first week of implementation may move more slowly than later weeks. We will address this by starting with a small, well-scoped first feature and checking in with each other regularly so that any one person's blockers do not stall the whole team.
+
+\section{Week Report 3 (September 15, 2026)}
+
+\noindent\textbf{1. What We Did This Past Week}
+
+This week, we completed our first round of interviews as a group and discussed the results together to evaluate how they translate into which features we should include in our product. We also fed our interview findings into AI to generate a starting list of use cases for our project.
+
+\noindent\textbf{2. What We Will Do Next Week}
+
+Next week, we plan to tighten up our requirements and use cases based on our interview findings and the AI-generated starting list, and begin working on our demo presentation.
+
+\noindent\textbf{3. Action Items}
+\begin{itemize}
+\item Refine our requirements based on the feedback gathered from our first round of interviews.
+\item Review and tighten up the AI-generated starting list of use cases.
+\item Begin preparing our demo presentation.
+\end{itemize}
+
+\noindent\textbf{4. Issues and Risks}
+
+Because our interview feedback was somewhat varied, we may need additional team discussion to reach agreement on which features to prioritize. We will address this by reviewing the feedback together and aligning on priorities before finalizing our requirements and use cases next week.
+
+\section{Week Report 2 (September 8, 2026)}
+
+\noindent\textbf{1. What We Did This Past Week}
+
+This week, we used AI to help compile and format our project report. We finished our Team Declaration and Mission Statement chapters and started drafting our Key Drivers and Key Constraints chapters, continued setting up our project documentation, and set up our GitHub repository. This work is not yet finished, and we are still working toward completing our Milestone 0 report.
+
+\noindent\textbf{2. What We Will Do Next Week}
+
+Next week, we plan to conduct more specific market research, including writing out the features we like and the features we find missing from competing products. We were not able to complete this market research last week because we spent more of our time on setting up our project and documentation. Next week, we also each plan to conduct an interview with someone outside our team to gauge whether there is demand for our product.
+
+\noindent\textbf{3. Action Items}
+\begin{itemize}
+\item Conduct specific market research on competing recipe and meal-planning applications.
+\item Document the features we like and the features that are missing from competitor products.
+\item Each team member conducts one interview to assess demand for our product.
+\end{itemize}
+
+\noindent\textbf{4. Issues and Risks}
+
+Because we spent more time on project setup this past week, our planned market research was delayed by one week. To stay on schedule, we will need to complete both the delayed market research and the new interviews next week, which increases our workload for that week.
+
+\section{Week Report 1 (September 1, 2026)}
+
+\noindent\textbf{1. What We Did This Past Week}
+
+This week, our group was formed and we selected an initial project idea. We discussed our interests and goals as a team and worked together to determine a direction for our project. We also began organizing our team and establishing a foundation for the work we will complete throughout the semester.
+
+\noindent\textbf{2. What We Will Do Next Week}
+
+Next week, we will conduct market research to gain a better understanding of our target market and the products or services related to our project idea. We will use this research to better define our product's goals, identify potential users, and understand the needs our product should address.
+
+\noindent\textbf{3. Action Items}
+\begin{itemize}
+\item Conduct initial market research.
+\item Research similar products and competitors.
+\item Identify the target users for our product.
+\item Further define the goals and purpose of our product.
+\item Continue setting up our project documentation in Overleaf.
+\end{itemize}
+
+\noindent\textbf{4. Issues and Risks}
+
+One issue our team is currently facing is that using \LaTeX{} and Overleaf is new to one of our team members. To address this, the team will work together to help everyone become comfortable with the tools and ensure that all members can contribute effectively to the project documentation. We will also communicate regularly and provide assistance when needed to prevent this from becoming a larger issue as the project progresses.

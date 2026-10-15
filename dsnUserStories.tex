@@ -1,0 +1,105 @@
+\chapter{User Stories}\ChapterLabel{UserStories}
+\index{user stories}
+\index{Chapter!User Stories}
+
+\noindent The stories below fall into two groups. End-user stories (\UserStoryRef{US-01} through \UserStoryRef{US-08}) come from the team's first round of stakeholder interviews, conducted during Week 3 (see \hyperref[Chapter:WeeklyReports]{Weekly Reports}); all four interviewees are college seniors, Scrap's primary target user (see \hyperref[Chapter:MissionStatement]{Mission Statement} and \hyperref[Chapter:KeyDrivers]{Key Drivers}). Other stakeholder stories (\UserStoryRef{US-09} through \UserStoryRef{US-14}) were derived by the team to represent perspectives beyond the end user: the developers who build and maintain Scrap, the business stakeholders responsible for its long-term viability, and the moderators who keep its community feed safe. Each story is written in the standard ``As a \_\_\_, I want \_\_\_, so that \_\_\_'' form and is mapped to the requirements it produced in \hyperref[Chapter:Requirements]{Requirements}. The complete story--requirement--use case mapping is in \hyperref[Chapter:Traceability]{Traceability Matrix}.
+
+\section{Interview Summary}
+
+\paragraph{Interviewee 1.} \textit{College senior, on-campus apartment.} Cooks 1--2 meals/day; finds recipes on Instagram; hardest part is the time between finding a recipe and getting the ingredients; limited space leads to batch cooking and consolidating appliances; relies on friends for appliances; about 5--10\% food waste; sees cooking as highly social. Stories: \UserStoryRef{US-01}, \UserStoryRef{US-02}.
+
+\paragraph{Interviewee 2.} \textit{College senior, five-person apartment.} Cooks about 2 meals/day; finds recipes on TikTok/Instagram and wants written steps alongside video; hardest part is motivation versus eating out; finishes leftovers about half the time; about 25\% food waste, improved by frozen vegetables; uses friends' cooking as inspiration. Stories: \UserStoryRef{US-03}, \UserStoryRef{US-04}.
+
+\paragraph{Interviewee 3.} \textit{College senior, living at home.} Cooks about twice a week; chooses meals from ingredients already on hand to save money; budget heavily affects choices; has had ingredients expire; dislikes social-media recipes that hide the full recipe; wants protein, prep time, difficulty, and substitution suggestions. Stories: \UserStoryRef{US-05}, \UserStoryRef{US-06}.
+
+\paragraph{Interviewee 4.} \textit{College senior, apartment.} Cooks about 14 times/week; shops for specific meals; struggles with portioning and grocery cost; sometimes buys groceries already on hand; searches Google and checks ingredients by hand; likes video, dislikes buried ingredient lists; very often stuck with a random ingredient; about 10\% food waste from spoilage. Stories: \UserStoryRef{US-07}, \UserStoryRef{US-08}.
+
+\section{End-User Stories}
+
+\paragraph{US-01: Closing the gap between finding a recipe and cooking it}
+\ArtifactLabel{UserStory}{US-01}\index{UserStory!US-01}
+As a college student cooking in a small kitchen, I want to see which recipes I can already make, so that I don't waste time gathering ingredients.
+
+\noindent\textbf{Source:} Interviewee 1. \textbf{Maps to:} \RequirementRef{REQ-F-03}, \RequirementRef{REQ-F-04}, \RequirementRef{REQ-F-09}, \RequirementRef{REQ-F-11}, \RequirementRef{REQ-F-12}.
+
+\paragraph{US-02: Cooking as a social activity}
+\ArtifactLabel{UserStory}{US-02}\index{UserStory!US-02}
+As a college student, I want to share what I'm cooking with friends, so that cooking feels social instead of solitary.
+
+\noindent\textbf{Source:} Interviewee 1. \textbf{Maps to:} \RequirementRef{REQ-F-01}, \RequirementRef{REQ-F-15}, \RequirementRef{REQ-F-16}.
+
+\paragraph{US-03: Video inspiration with written instructions}
+\ArtifactLabel{UserStory}{US-03}\index{UserStory!US-03}
+As a college student who finds recipes on social media, I want written steps alongside any video, so that I can actually follow the recipe.
+
+\noindent\textbf{Source:} Interviewee 2. \textbf{Maps to:} \RequirementRef{REQ-F-04}, \RequirementRef{REQ-F-05}, \RequirementRef{REQ-F-06}, \RequirementRef{REQ-F-07}, \RequirementRef{REQ-NF-01}.
+
+\paragraph{US-04: Using up leftovers and getting inspiration from friends}
+\ArtifactLabel{UserStory}{US-04}\index{UserStory!US-04}
+As a college student who often has leftovers, I want recipe ideas that use them up, so that less of my food goes to waste.
+
+\noindent\textbf{Source:} Interviewee 2. \textbf{Maps to:} \RequirementRef{REQ-F-02}, \RequirementRef{REQ-F-12}, \RequirementRef{REQ-F-13}, \RequirementRef{REQ-F-16}.
+
+\paragraph{US-05: Cooking from what is already at home, on a budget}
+\ArtifactLabel{UserStory}{US-05}\index{UserStory!US-05}
+As a budget-conscious college student, I want recipes recommended from what I already have, so that I spend less and waste less.
+
+\noindent\textbf{Source:} Interviewee 3. \textbf{Maps to:} \RequirementRef{REQ-F-02}, \RequirementRef{REQ-F-03}, \RequirementRef{REQ-F-06}, \RequirementRef{REQ-F-08}, \RequirementRef{REQ-F-10}, \RequirementRef{REQ-F-14}.
+
+\paragraph{US-06: The whole recipe up front}
+\ArtifactLabel{UserStory}{US-06}\index{UserStory!US-06}
+As a college student browsing recipes on my phone, I want the full recipe on one screen, so that I don't have to hunt for it elsewhere.
+
+\noindent\textbf{Source:} Interviewee 3. \textbf{Maps to:} \RequirementRef{REQ-F-05}, \RequirementRef{REQ-F-07}, \RequirementRef{REQ-NF-01}, \RequirementRef{REQ-NF-03}.
+
+\paragraph{US-07: Portions, budget, and not buying what is already at home}
+\ArtifactLabel{UserStory}{US-07}\index{UserStory!US-07}
+As a budget-conscious college student, I want a grocery list limited to what I actually lack, so that I don't overspend or overbuy.
+
+\noindent\textbf{Source:} Interviewee 4. \textbf{Maps to:} \RequirementRef{REQ-F-02}, \RequirementRef{REQ-F-09}, \RequirementRef{REQ-F-10}, \RequirementRef{REQ-F-12}, \RequirementRef{REQ-F-13}.
+
+\paragraph{US-08: Stop manually matching ingredients; stop letting food go bad}
+\ArtifactLabel{UserStory}{US-08}\index{UserStory!US-08}
+As a college student, I want the app to match my pantry to recipes automatically, so that I stop doing it by hand.
+
+\noindent\textbf{Source:} Interviewee 4. \textbf{Maps to:} \RequirementRef{REQ-F-03}, \RequirementRef{REQ-F-05}, \RequirementRef{REQ-F-07}, \RequirementRef{REQ-F-14}.
+
+\section{Other Stakeholder Stories}
+
+\noindent The stories below represent stakeholders beyond the end user: the developers building Scrap, the business/product side responsible for its long-term viability, and the moderators who keep the community feed safe. They were derived by the team rather than gathered from an interview, and they directly informed the iOS-specific technical requirements in \hyperref[Chapter:Requirements]{Requirements}.
+
+\paragraph{US-09: Isolated business logic}
+\ArtifactLabel{UserStory}{US-09}\index{UserStory!US-09}
+As a developer, I want the matching and grocery-list logic reachable through a documented API, so that I can change it without breaking the UI.
+
+\noindent\textbf{Source:} Derived by the team (developer stakeholder). \textbf{Maps to:} \RequirementRef{REQ-T-02}, \RequirementRef{REQ-T-04}.
+
+\paragraph{US-10: Confidence to change core logic}
+\ArtifactLabel{UserStory}{US-10}\index{UserStory!US-10}
+As a developer, I want automated tests on the app's core logic, so that changes don't silently break it.
+
+\noindent\textbf{Source:} Derived by the team (developer stakeholder). \textbf{Maps to:} \RequirementRef{REQ-T-06}.
+
+\paragraph{US-11: An app that works without a connection}
+\ArtifactLabel{UserStory}{US-11}\index{UserStory!US-11}
+As a developer, I want pantry data stored locally on the device, so that the app works offline.
+
+\noindent\textbf{Source:} Derived by the team (developer stakeholder). \textbf{Maps to:} \RequirementRef{REQ-T-03}.
+
+\paragraph{US-12: A native, approvable app}
+\ArtifactLabel{UserStory}{US-12}\index{UserStory!US-12}
+As a business stakeholder, I want Scrap built to Apple's guidelines, so that it feels native and passes App Store review.
+
+\noindent\textbf{Source:} Derived by the team (business stakeholder). \textbf{Maps to:} \RequirementRef{REQ-T-01}, \RequirementRef{REQ-T-05}.
+
+\paragraph{US-13: Bringing users back}
+\ArtifactLabel{UserStory}{US-13}\index{UserStory!US-13}
+As a business stakeholder, I want timely push notifications, so that users keep coming back to the app.
+
+\noindent\textbf{Source:} Derived by the team (business stakeholder). \textbf{Maps to:} \RequirementRef{REQ-T-07}, \RequirementRef{REQ-F-14}.
+
+\paragraph{US-14: Keeping the community feed safe}
+\ArtifactLabel{UserStory}{US-14}\index{UserStory!US-14}
+As a community moderator, I want to remove reported content, so that the feed stays safe.
+
+\noindent\textbf{Source:} Derived by the team (community stakeholder). \textbf{Maps to:} \RequirementRef{REQ-F-17}.

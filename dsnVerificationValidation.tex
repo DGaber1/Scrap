@@ -1,0 +1,97 @@
+\chapter{Verification, Validation, and Testing}\ChapterLabel{VerificationValidationTesting}
+\index{verification}
+\index{validation}
+\index{testing}
+\index{Chapter!Verification, Validation, and Testing}
+
+\noindent This chapter defines how the team will confirm that Scrap is built correctly and that it solves the problem it set out to solve. Verification asks whether the system conforms to its own specification --- \textit{did we build the system right} --- and is checked per requirement through inspection, demonstration, test, or analysis \cite{IEEE1012}. Validation asks whether the completed system meets real stakeholder needs in its intended context --- \textit{did we build the right system} --- and is checked through realistic usage scenarios with actual users \cite{IEEE1012}. Because Scrap has not yet been built, every status below is \StatusPending; the team will update this chapter as the \hyperref[Chapter:DevelopmentPlan]{Development Plan} chapter's Testing Plan is carried out, and validation in particular will not be meaningful until beta users are recruited in January 2027 (see that chapter's Timeline and Milestones).
+
+\section{Verification Register}
+\index{verification!register}
+
+\noindent The register below lists a representative set of Scrap's requirements, including the two bonus requirements added from Milestone 1 presentation feedback (\RequirementRef{REQ-F-19}, \RequirementRef{REQ-F-20}), the verification method that applies to each, and the evidence the team will collect. It is not exhaustive of all requirements in \hyperref[Chapter:Requirements]{Requirements}; it will grow as implementation proceeds.
+
+\begin{tabularx}{\linewidth}{L{1.7cm}L{2.75cm}L{2.8cm}YL{2.1cm}}
+\caption{Verification Register\label{Table:VerificationRegister}}\\
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Method} & \textbf{Required Evidence} & \textbf{Status}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Method} & \textbf{Required Evidence} & \textbf{Status}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{5}{r}{\small\itshape Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\VerificationID{VER-001} & \RequirementRef{REQ-F-01} & Test & XCUITest run covering account creation, login, and logout & \StatusPending\\
+\VerificationID{VER-002} & \RequirementRef{REQ-F-02} & Test & XCTest unit tests for adding, editing, and removing pantry items & \StatusPending\\
+\VerificationID{VER-003} & \RequirementRef{REQ-F-03} & Test & XCTest unit tests comparing ranked output to expected results for fixture pantries and recipes (\TestCaseRef{TC-001}) & \StatusPending\\
+\VerificationID{VER-004} & \RequirementRef{REQ-F-09} & Test & XCTest unit test confirming a generated grocery list contains only missing ingredients (\TestCaseRef{TC-002}) & \StatusPending\\
+\VerificationID{VER-005} & \RequirementRef{REQ-F-19} & Demonstration & Manual walkthrough on a device: photograph a set of known ingredients and confirm the proposed pantry items (\TestCaseRef{TC-004}) & \StatusPending\\
+\VerificationID{VER-006} & \RequirementRef{REQ-F-20} & Test & Unit tests on the shelf-life estimation logic plus a demonstrated notification for an ingredient nearing its estimated shelf life (\TestCaseRef{TC-005}) & \StatusPending\\
+\VerificationID{VER-007} & \RequirementRef{REQ-NF-01} & Inspection & UI walkthrough confirming a recipe's full ingredient list and instructions are reachable within one tap from the results list & \StatusPending\\
+\VerificationID{VER-008} & \RequirementRef{REQ-NF-02} & Test & Automated timing test returning ranked results for a 100-item pantry fixture in under 2 seconds (\TestCaseRef{TC-003}) & \StatusPending\\
+\VerificationID{VER-009} & \RequirementRef{REQ-NF-04} & Inspection & Code review confirming Supabase authentication stores only salted password hashes and posts respect the user's public/private choice & \StatusPending\\
+\VerificationID{VER-010} & \RequirementRef{REQ-C-01} & Analysis & Review of projected Spoonacular call volume and Supabase storage against free-tier limits & \StatusPending\\
+\VerificationID{VER-011} & \RequirementRef{REQ-T-06} & Inspection & Review of the XCTest/XCUITest coverage report for ingredient-matching, grocery-list, account, and search flows & \StatusPending\\
+\VerificationID{VER-012} & \RequirementRef{REQ-T-11} & Test & Simulated Spoonacular error and rate-limit responses confirmed not to crash the app or show a blank screen (\TestCaseRef{TC-006}) & \StatusPending\\
+\end{tabularx}
+
+\section{Validation Register}
+\index{validation!register}
+
+\noindent Validation exercises Scrap with real people once a working prototype exists, starting with the beta users recruited in January 2027. Each scenario below is tied to the user story that motivated it.
+
+\begin{tabularx}{\linewidth}{L{1.6cm}L{1.7cm}YYL{2.1cm}}
+\caption{Validation Register\label{Table:ValidationRegister}}\\
+\toprule
+\textbf{ID} & \textbf{Related Story} & \textbf{Scenario} & \textbf{Success Criterion} & \textbf{Status}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Related Story} & \textbf{Scenario} & \textbf{Success Criterion} & \textbf{Status}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{5}{r}{\small\itshape Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\ValidationID{VAL-001} & \UserStoryRef{US-01} & A beta user with a stocked pantry opens Scrap and searches for what they can make. & The user finds and cooks a recipe made mostly from ingredients already on hand, without leaving the app. & \StatusPending\\
+\ValidationID{VAL-002} & \UserStoryRef{US-05} & A budget-conscious beta user relies on Scrap instead of shopping for a recipe from scratch for a week. & The user reports spending less and using more of what they already owned. & \StatusPending\\
+\ValidationID{VAL-003} & \UserStoryRef{US-08} & A beta user adds pantry items by photo instead of typing them in. & The user completes pantry entry faster than manual typing and confirms the identified items were correct. & \StatusPending\\
+\ValidationID{VAL-004} & \UserStoryRef{US-13} & A beta user receives a shelf-life reminder for a vegetable nearing spoilage. & The user opens the notification and cooks a suggested recipe before the ingredient spoils. & \StatusPending\\
+\ValidationID{VAL-005} & \UserStoryRef{US-02} & A beta user shares a dish they cooked to the community feed. & The user reports that sharing feels social rather than like a chore. & \StatusPending\\
+\ValidationID{VAL-006} & \UserStoryRef{US-14} & A beta user reports an inappropriate community post. & A moderator reviews and removes the content within an agreed response time. & \StatusPending\\
+\end{tabularx}
+
+\section{Example Test Cases}
+\index{testing!test cases}
+
+\noindent The test cases below give concrete, repeatable procedures for a sample of the verification rows above, following a standard test-case structure of mapped requirement, procedure, and expected result \cite{ISO29119Part2}. Evidence from running these (screenshots, console output, or CI logs) will be recorded once implementation begins.
+
+\begin{tabularx}{\linewidth}{L{1.6cm}L{2.0cm}YY}
+\caption{Example Test Cases\label{Table:ExampleTestCases}}\\
+\toprule
+\textbf{ID} & \textbf{Mapped Requirement} & \textbf{Procedure} & \textbf{Expected Result}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Mapped Requirement} & \textbf{Procedure} & \textbf{Expected Result}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{\small\itshape Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\TestCaseID{TC-001} & \RequirementRef{REQ-F-03} & Load a fixture pantry and recipe catalog, call the ranking function, and compare the output order to the expected order. & Recipes are ranked by descending percentage of matched ingredients.\\
+\TestCaseID{TC-002} & \RequirementRef{REQ-F-09} & Select a recipe with two missing ingredients and generate a grocery list. & The list contains exactly the two missing ingredients, scaled to the chosen number of servings.\\
+\TestCaseID{TC-003} & \RequirementRef{REQ-NF-02} & Populate the pantry with 100 items and request ranked recipes, measuring response time. & Results are returned within 2 seconds.\\
+\TestCaseID{TC-004} & \RequirementRef{REQ-F-19} & Upload a test photo containing three known ingredients. & The system proposes three matching candidate items for the user to confirm.\\
+\TestCaseID{TC-005} & \RequirementRef{REQ-F-20} & Add a fresh vegetable with no manual expiration date, then advance the estimated shelf life to its end. & The app sends a push notification suggesting a recipe that uses that ingredient.\\
+\TestCaseID{TC-006} & \RequirementRef{REQ-T-11} & Simulate a Spoonacular rate-limit response during a recipe search. & The app shows a graceful error state rather than crashing or showing a blank screen.\\
+\end{tabularx}

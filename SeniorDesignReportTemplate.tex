@@ -1,8 +1,9 @@
 % Senior Design (423-IDE401 / 424-IDE402) Core Report Template
 % Adapted from the System and Software Architecture Design Template.
 % Milestone 1 working copy: front matter + Team Declaration + Mission
-% Statement + Key Drivers + Key Constraints only. Later chapters (Part II,
-% Part III, Appendices) are added back in as each is completed.
+% Statement + Key Drivers + Key Constraints + User Stories + Requirements +
+% Use Cases + Traceability Matrix + Appendices. Later Part II/III design and
+% evaluation chapters are added back in as each is completed.
 \documentclass[12pt]{cornell}
 
 \usepackage[T1]{fontenc}
@@ -38,16 +39,16 @@
 
 % Replace the values below when starting a project.
 \newcommand{\ProjectName}{Scrap}
-\newcommand{\DocumentVersion}{1.1}
+\newcommand{\DocumentVersion}{1.27}
 \newcommand{\DocumentStatus}{Milestone 1 Draft}
-\newcommand{\DocumentOwner}{Team Scrap}
+\newcommand{\DocumentOwner}{Salome Orozco, Samah Keshiro, Deanna Gaber}
 \newcommand{\Organization}{Stevens Institute of Technology}
-\newcommand{\DocumentDate}{September 8, 2026}
+\newcommand{\DocumentDate}{September 24, 2026}
 \newcommand{\VERSION}{Version \DocumentVersion}
 
 \hypersetup{
   pdftitle={Scrap - Senior Design Core Report},
-  pdfauthor={Team Scrap},
+  pdfauthor={Salome Orozco, Samah Keshiro, Deanna Gaber},
   pdfcreator={Senior Design Core Report Template},
   pdfsubject={Senior Design (423-IDE401 / 424-IDE402) core report},
   pdfkeywords={senior design, engineering design, requirements, prototype, evaluation}
@@ -113,6 +114,15 @@
 \renewcommand{\footrulewidth}{0.4pt}
 
 \include{sdPartI}
+\include{dsnUserStories}
+\include{dsnRequirements}
+\include{dsnUseCases}
+\include{dsnTraceability}
+\include{dsnVerificationValidation}
+
+\appendix
+\include{sdAppendices}
+\include{dsnAIPromptLog}
 
 \bibliographystyle{IEEEtran}
 \nocite{ISO15288,ISO12207,ISO29148}

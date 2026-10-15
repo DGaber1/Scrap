@@ -1,0 +1,195 @@
+\chapter{Requirements}\ChapterLabel{Requirements}
+\index{requirements}
+\index{Chapter!Requirements}
+
+\noindent This chapter presents Scrap's initial requirements, divided into functional requirements (REQ-F), non-functional requirements (REQ-NF), constraints (REQ-C), and technical requirements for the iOS platform (REQ-T). Each requirement lists the user stories it came from (\hyperref[Chapter:UserStories]{User Stories}) and the use cases that exercise it (\hyperref[Chapter:UseCases]{Use Cases}). Requirements that do not come directly from an interview are marked as derived and name their basis. Constraints are drawn from the \hyperref[Chapter:KeyConstraints]{Key Constraints} chapter. The requirements support the four core values in the \hyperref[Chapter:MissionStatement]{Mission Statement}: making cooking easy, affordable, fun, and less wasteful.
+
+\section{Functional Requirements}
+\index{requirements!functional}
+
+\paragraph{REQ-F-01: User accounts.}
+\ArtifactLabel{Requirement}{REQ-F-01}\index{Requirement!REQ-F-01} The system shall allow a user to create an account, log in, and log out, so that pantry data, contributed recipes, and posts are tied to that user.\\
+\textit{Source:} \UserStoryRef{US-02}. \textbf{Use cases:} \UseCaseRef{UC-01}, \UseCaseRef{UC-09}, \UseCaseRef{UC-10}.
+
+\paragraph{REQ-F-02: Pantry inventory.}
+\ArtifactLabel{Requirement}{REQ-F-02}\index{Requirement!REQ-F-02} The system shall allow a user to add, edit, and remove ingredients they have on hand (including frozen items and saved leftovers), with an optional quantity for each.\\
+\textit{Source:} \UserStoryRef{US-04}, \UserStoryRef{US-05}, \UserStoryRef{US-07}. \textbf{Use cases:} \UseCaseRef{UC-02}, \UseCaseRef{UC-05}, \UseCaseRef{UC-07}.
+
+\paragraph{REQ-F-03: Ingredient-match search.}
+\ArtifactLabel{Requirement}{REQ-F-03}\index{Requirement!REQ-F-03} The system shall recommend recipes based on the user's pantry and rank them by the percentage of each recipe's ingredients the user already has.\\
+\textit{Source:} \UserStoryRef{US-01}, \UserStoryRef{US-05}, \UserStoryRef{US-08}. \textbf{Use cases:} \UseCaseRef{UC-03}, \UseCaseRef{UC-08}.
+
+\paragraph{REQ-F-04: Recipe filters.}
+\ArtifactLabel{Requirement}{REQ-F-04}\index{Requirement!REQ-F-04} The system shall let the user filter and sort recommended recipes by total time, difficulty, and required kitchen equipment.\\
+\textit{Source:} \UserStoryRef{US-01}, \UserStoryRef{US-03}. \textbf{Use cases:} \UseCaseRef{UC-03}.
+
+\paragraph{REQ-F-05: Complete recipe view.}
+\ArtifactLabel{Requirement}{REQ-F-05}\index{Requirement!REQ-F-05} The system shall display a recipe's full ingredient list and complete written step-by-step instructions together on one page inside the app, without redirecting the user to an external site.\\
+\textit{Source:} \UserStoryRef{US-03}, \UserStoryRef{US-06}, \UserStoryRef{US-08}. \textbf{Use cases:} \UseCaseRef{UC-04}.
+
+\paragraph{REQ-F-06: Recipe facts.}
+\ArtifactLabel{Requirement}{REQ-F-06}\index{Requirement!REQ-F-06} The system shall display, for each recipe, the prep and cook time, a difficulty rating, and nutrition facts including protein per serving.\\
+\textit{Source:} \UserStoryRef{US-03}, \UserStoryRef{US-05}. \textbf{Use cases:} \UseCaseRef{UC-04}.
+
+\paragraph{REQ-F-07: Recipe video.}
+\ArtifactLabel{Requirement}{REQ-F-07}\index{Requirement!REQ-F-07} The system could allow a recipe to include a video, shown alongside (never in place of) the written instructions. This is a bonus feature, not required for the minimum viable product.\\
+\textit{Source:} \UserStoryRef{US-03}, \UserStoryRef{US-06}, \UserStoryRef{US-08}. \textbf{Use cases:} \UseCaseRef{UC-04}, \UseCaseRef{UC-09}.
+
+\paragraph{REQ-F-08: Ingredient substitutions.}
+\ArtifactLabel{Requirement}{REQ-F-08}\index{Requirement!REQ-F-08} The system shall suggest substitutions for ingredients the user is missing, preferring substitutes already in the user's pantry.\\
+\textit{Source:} \UserStoryRef{US-05}. \textbf{Use cases:} \UseCaseRef{UC-05}.
+
+\paragraph{REQ-F-09: Grocery list.}
+\ArtifactLabel{Requirement}{REQ-F-09}\index{Requirement!REQ-F-09} The system shall generate a grocery list containing only the ingredients a selected recipe needs that are not already in the user's pantry.\\
+\textit{Source:} \UserStoryRef{US-01}, \UserStoryRef{US-07}. \textbf{Use cases:} \UseCaseRef{UC-06}.
+
+\paragraph{REQ-F-10: Estimated cost.}
+\ArtifactLabel{Requirement}{REQ-F-10}\index{Requirement!REQ-F-10} The system shall display an estimated cost for each recipe and for each generated grocery list.\\
+\textit{Source:} \UserStoryRef{US-05}, \UserStoryRef{US-07}. \textbf{Use cases:} \UseCaseRef{UC-06}.
+
+\paragraph{REQ-F-11: Equipment profile.}
+\ArtifactLabel{Requirement}{REQ-F-11}\index{Requirement!REQ-F-11} The system shall allow the user to record which kitchen appliances and tools they own, and use this profile when filtering recipes.\\
+\textit{Source:} \UserStoryRef{US-01}. \textbf{Use cases:} \UseCaseRef{UC-01}, \UseCaseRef{UC-03}.
+
+\paragraph{REQ-F-12: Serving scaling.}
+\ArtifactLabel{Requirement}{REQ-F-12}\index{Requirement!REQ-F-12} The system shall allow the user to change a recipe's number of servings and automatically rescale all ingredient quantities.\\
+\textit{Source:} \UserStoryRef{US-01}, \UserStoryRef{US-04}, \UserStoryRef{US-07}. \textbf{Use cases:} \UseCaseRef{UC-07}.
+
+\paragraph{REQ-F-13: Leftover tracking.}
+\ArtifactLabel{Requirement}{REQ-F-13}\index{Requirement!REQ-F-13} The system could allow the user to log leftover portions from a cooked recipe to their pantry and could suggest recipes that reuse those leftovers. This is a bonus feature, not required for the minimum viable product.\\
+\textit{Source:} \UserStoryRef{US-04}, \UserStoryRef{US-07}. \textbf{Use cases:} \UseCaseRef{UC-07}.
+
+\paragraph{REQ-F-14: Expiration alerts.}
+\ArtifactLabel{Requirement}{REQ-F-14}\index{Requirement!REQ-F-14} The system could allow the user to record an expiration date for pantry items, notify the user when an item is close to expiring, and prioritize recipes that use soon-to-expire items. This is a bonus feature, not required for the minimum viable product.\\
+\textit{Source:} \UserStoryRef{US-05}, \UserStoryRef{US-08}. \textbf{Use cases:} \UseCaseRef{UC-02}, \UseCaseRef{UC-08}.
+
+\paragraph{REQ-F-15: Recipe contribution.}
+\ArtifactLabel{Requirement}{REQ-F-15}\index{Requirement!REQ-F-15} The system shall allow a logged-in user to submit a recipe (ingredients, written steps, servings, time, difficulty, and optional photo or video) for other users to discover.\\
+\textit{Source:} \UserStoryRef{US-02}. \textbf{Use cases:} \UseCaseRef{UC-09}.
+
+\paragraph{REQ-F-16: Community feed.}
+\ArtifactLabel{Requirement}{REQ-F-16}\index{Requirement!REQ-F-16} The system shall allow a logged-in user to post photos of dishes they have cooked, link the post to a recipe, and browse a feed of posts from other users.\\
+\textit{Source:} \UserStoryRef{US-02}, \UserStoryRef{US-04}. \textbf{Use cases:} \UseCaseRef{UC-10}.
+
+\paragraph{REQ-F-17: Content moderation.}
+\ArtifactLabel{Requirement}{REQ-F-17}\index{Requirement!REQ-F-17} The system shall allow a user to report a post or contributed recipe, and allow an administrator to remove reported content that violates community guidelines.\\
+\textit{Source:} \UserStoryRef{US-14}. \textbf{Use cases:} \UseCaseRef{UC-10}.
+
+\paragraph{REQ-F-18: Barcode pantry entry.}
+\ArtifactLabel{Requirement}{REQ-F-18}\index{Requirement!REQ-F-18} The system could allow a user to scan a product barcode to add it to their pantry, using a free product-lookup source such as Open Food Facts. This is a bonus feature, not required for the minimum viable product.\\
+\textit{Source:} Derived by the team's technical plan. \textbf{Use cases:} \UseCaseRef{UC-02}.
+
+\paragraph{REQ-F-19: Photo-based pantry entry.}
+\ArtifactLabel{Requirement}{REQ-F-19}\index{Requirement!REQ-F-19} The system could allow a user to add pantry items by taking or uploading a photo of their ingredients, using image recognition to identify them, as a faster alternative to typing each item in manually. This is a bonus feature, not required for the minimum viable product.\\
+\textit{Source:} Derived from usability feedback the team received after presenting Milestone 1. \textbf{Use cases:} \UseCaseRef{UC-02}, \UseCaseRef{UC-11}.
+
+\paragraph{REQ-F-20: Automatic shelf-life estimation and expiration reminders.}
+\ArtifactLabel{Requirement}{REQ-F-20}\index{Requirement!REQ-F-20} The system could estimate how long a fresh, unpackaged ingredient (such as a vegetable) will likely last based on its type, without requiring the user to enter an expiration date manually, and could notify the user with recipe suggestions that use that ingredient as it nears the end of its estimated shelf life. This is a bonus feature, not required for the minimum viable product.\\
+\textit{Source:} Derived from usability feedback the team received after presenting Milestone 1. \textbf{Use cases:} \UseCaseRef{UC-02}, \UseCaseRef{UC-08}, \UseCaseRef{UC-12}.
+
+\section{Non-Functional Requirements}
+\index{requirements!non-functional}
+
+\paragraph{REQ-NF-01: Usability.}
+\ArtifactLabel{Requirement}{REQ-NF-01}\index{Requirement!REQ-NF-01} A user shall be able to reach a recipe's complete ingredient list and instructions within one tap of selecting it from the results list.\\
+\textit{Source:} \UserStoryRef{US-03}, \UserStoryRef{US-06}. \textbf{Use cases:} \UseCaseRef{UC-03}, \UseCaseRef{UC-04}.
+
+\paragraph{REQ-NF-02: Performance.}
+\ArtifactLabel{Requirement}{REQ-NF-02}\index{Requirement!REQ-NF-02} Ranked recipe results shall be returned within 2 seconds for a pantry of up to 100 items.\\
+\textit{Source:} Derived by the team from \UserStoryRef{US-05} and \UserStoryRef{US-08} (the core ingredient-matching workflow must feel instant). \textbf{Use cases:} \UseCaseRef{UC-03}, \UseCaseRef{UC-08}.
+
+\paragraph{REQ-NF-03: Mobile responsiveness.}
+\ArtifactLabel{Requirement}{REQ-NF-03}\index{Requirement!REQ-NF-03} All pages shall be fully usable on a phone-sized screen (360 px wide or larger), since users cook and shop with their phones in hand.\\
+\textit{Source:} \UserStoryRef{US-06}. \textbf{Use cases:} \UseCaseRef{UC-02}, \UseCaseRef{UC-04}, \UseCaseRef{UC-06}.
+
+\paragraph{REQ-NF-04: Security and privacy.}
+\ArtifactLabel{Requirement}{REQ-NF-04}\index{Requirement!REQ-NF-04} User passwords shall be stored only as salted hashes, and users shall control whether their posts and contributed recipes are public.\\
+\textit{Source:} Derived by the team from \UserStoryRef{US-02} (sharing requires accounts and user trust). \textbf{Use cases:} \UseCaseRef{UC-01}, \UseCaseRef{UC-10}.
+
+\paragraph{REQ-NF-05: Accessibility.}
+\ArtifactLabel{Requirement}{REQ-NF-05}\index{Requirement!REQ-NF-05} The interface shall meet WCAG 2.1 Level AA guidelines, and every recipe video shall be accompanied by complete written steps.\\
+\textit{Source:} Derived by the team from \UserStoryRef{US-03} and \UserStoryRef{US-06}. \textbf{Use cases:} \UseCaseRef{UC-04}, \UseCaseRef{UC-09}.
+
+\section{Constraints}
+\index{requirements!constraints}
+
+\paragraph{REQ-C-01: Budget.}
+\ArtifactLabel{Requirement}{REQ-C-01}\index{Requirement!REQ-C-01} The system shall be built and hosted using free-tier services --- Supabase for the backend and storage, Spoonacular for recipe data, and Vercel or Netlify for the companion website --- which limits storage for user-uploaded photos and videos and caps the number of Spoonacular API calls available per day.\\
+\textit{Source:} \hyperref[Chapter:KeyConstraints]{Key Constraints}. \textbf{Use cases:} \UseCaseRef{UC-03}, \UseCaseRef{UC-09}, \UseCaseRef{UC-10}.
+
+\paragraph{REQ-C-02: Schedule.}
+\ArtifactLabel{Requirement}{REQ-C-02}\index{Requirement!REQ-C-02} The system shall be delivered on the senior-design milestone schedule within the current academic year.\\
+\textit{Source:} \hyperref[Chapter:KeyConstraints]{Key Constraints}. \textbf{Use cases:} All (\UseCaseRef{UC-01}--\UseCaseRef{UC-10}).
+
+\paragraph{REQ-C-03: Team size.}
+\ArtifactLabel{Requirement}{REQ-C-03}\index{Requirement!REQ-C-03} The system shall be designed, built, and tested by a three-person student team.\\
+\textit{Source:} \hyperref[Chapter:KeyConstraints]{Key Constraints}. \textbf{Use cases:} All (\UseCaseRef{UC-01}--\UseCaseRef{UC-10}).
+
+\paragraph{REQ-C-04: Data sources.}
+\ArtifactLabel{Requirement}{REQ-C-04}\index{Requirement!REQ-C-04} Recipe and nutrition data shall come from the Spoonacular API (free tier), optionally supplemented by Open Food Facts for product lookups; user-contributed recipe content shall be original or properly licensed and shall not be copied from social media or other sites.\\
+\textit{Source:} \hyperref[Chapter:KeyConstraints]{Key Constraints}. \textbf{Use cases:} \UseCaseRef{UC-04}, \UseCaseRef{UC-09}.
+
+\paragraph{REQ-C-05: Price data.}
+\ArtifactLabel{Requirement}{REQ-C-05}\index{Requirement!REQ-C-05} Grocery costs shall be shown as estimates, because no free, real-time grocery price source is assumed to be available.\\
+\textit{Source:} \hyperref[Chapter:KeyConstraints]{Key Constraints}. \textbf{Use cases:} \UseCaseRef{UC-06}.
+
+\paragraph{REQ-C-06: Bug tracking.}
+\ArtifactLabel{Requirement}{REQ-C-06}\index{Requirement!REQ-C-06} The team shall track defects found during testing using GitHub Issues in the project's existing repository, so testing feedback is not lost between weekly reports.\\
+\textit{Source:} Derived by the team's technical plan. \textbf{Use cases:} All (\UseCaseRef{UC-01}--\UseCaseRef{UC-10}).
+
+\section{Technical Requirements}
+\index{requirements!technical}
+
+\noindent These requirements capture how Scrap will be built, based on the team's technical plan: a native iOS app backed by Supabase, recipe data sourced from Spoonacular, and a companion website kept separate from the app. Requirements without a specific user-story source were derived directly from that plan.
+
+\paragraph{REQ-T-01: Native platform.}
+\ArtifactLabel{Requirement}{REQ-T-01}\index{Requirement!REQ-T-01} The app shall be built natively in Swift and SwiftUI, targeting the two most recent major iOS releases. A cross-platform framework such as Flutter for Android support remains a possible future addition and is out of scope for this milestone.\\
+\textit{Source:} \UserStoryRef{US-12}. \textbf{Use cases:} All (\UseCaseRef{UC-01}--\UseCaseRef{UC-10}).
+
+\paragraph{REQ-T-02: MVVM architecture.}
+\ArtifactLabel{Requirement}{REQ-T-02}\index{Requirement!REQ-T-02} The app shall follow an MVVM architecture that keeps ingredient-matching, ranking, and grocery-list logic in view models separate from the SwiftUI view layer.\\
+\textit{Source:} \UserStoryRef{US-09}. \textbf{Use cases:} \UseCaseRef{UC-03}, \UseCaseRef{UC-06}.
+
+\paragraph{REQ-T-03: Offline-first persistence.}
+\ArtifactLabel{Requirement}{REQ-T-03}\index{Requirement!REQ-T-03} Pantry contents and previously loaded recipes shall be cached locally (SwiftData or Core Data) on top of the Supabase backend, so pantry management and recipe browsing keep working without a network connection.\\
+\textit{Source:} \UserStoryRef{US-11}. \textbf{Use cases:} \UseCaseRef{UC-02}, \UseCaseRef{UC-03}.
+
+\paragraph{REQ-T-04: Networking.}
+\ArtifactLabel{Requirement}{REQ-T-04}\index{Requirement!REQ-T-04} The app shall reach Supabase through its official Swift SDK and reach Spoonacular through its REST API, with every request made over HTTPS.\\
+\textit{Source:} \UserStoryRef{US-09}. \textbf{Use cases:} All (\UseCaseRef{UC-01}--\UseCaseRef{UC-10}).
+
+\paragraph{REQ-T-05: Platform guidelines.}
+\ArtifactLabel{Requirement}{REQ-T-05}\index{Requirement!REQ-T-05} The app shall follow Apple's Human Interface Guidelines (navigation, typography, and Dynamic Type support) and Apple's App Store Review Guidelines.\\
+\textit{Source:} \UserStoryRef{US-12}. \textbf{Use cases:} All (\UseCaseRef{UC-01}--\UseCaseRef{UC-10}).
+
+\paragraph{REQ-T-06: Automated testing.}
+\ArtifactLabel{Requirement}{REQ-T-06}\index{Requirement!REQ-T-06} The ingredient-matching and grocery-list logic, including the Supabase queries behind them, shall be covered by XCTest unit tests, and account creation and recipe search shall be covered by XCUITest.\\
+\textit{Source:} \UserStoryRef{US-10}. \textbf{Use cases:} \UseCaseRef{UC-01}, \UseCaseRef{UC-03}, \UseCaseRef{UC-06}.
+
+\paragraph{REQ-T-07: Push notifications.}
+\ArtifactLabel{Requirement}{REQ-T-07}\index{Requirement!REQ-T-07} Expiration alerts shall be delivered through Apple Push Notification service (APNs), requested via the standard iOS notification permission prompt.\\
+\textit{Source:} \UserStoryRef{US-13}. \textbf{Use cases:} \UseCaseRef{UC-08}.
+
+\paragraph{REQ-T-08: Backend platform.}
+\ArtifactLabel{Requirement}{REQ-T-08}\index{Requirement!REQ-T-08} The app shall use Supabase (hosted Postgres, authentication, and file storage) as its backend, so the team is not building or hosting its own server infrastructure.\\
+\textit{Source:} Derived by the team's technical plan. \textbf{Use cases:} All (\UseCaseRef{UC-01}--\UseCaseRef{UC-10}).
+
+\paragraph{REQ-T-09: Database schema.}
+\ArtifactLabel{Requirement}{REQ-T-09}\index{Requirement!REQ-T-09} The Supabase schema shall include relational tables for users, pantry items, recipes, recipe ingredients, and grocery list items.\\
+\textit{Source:} Derived by the team's technical plan. \textbf{Use cases:} \UseCaseRef{UC-02}, \UseCaseRef{UC-03}, \UseCaseRef{UC-06}.
+
+\paragraph{REQ-T-10: Recipe and ingredient data source.}
+\ArtifactLabel{Requirement}{REQ-T-10}\index{Requirement!REQ-T-10} Recipe and ingredient data shall come from the Spoonacular API, including its ingredient-based search endpoint, merged with recipes users contribute directly through Scrap.\\
+\textit{Source:} Derived by the team's technical plan. \textbf{Use cases:} \UseCaseRef{UC-03}, \UseCaseRef{UC-04}, \UseCaseRef{UC-08}, \UseCaseRef{UC-09}.
+
+\paragraph{REQ-T-11: Third-party API resilience.}
+\ArtifactLabel{Requirement}{REQ-T-11}\index{Requirement!REQ-T-11} The app shall handle an unexpected Spoonacular response --- missing fields, a rate-limit error, or no results --- without crashing or showing a blank screen.\\
+\textit{Source:} Derived by the team's technical plan. \textbf{Use cases:} \UseCaseRef{UC-03}, \UseCaseRef{UC-04}.
+
+\paragraph{REQ-T-12: Beta distribution.}
+\ArtifactLabel{Requirement}{REQ-T-12}\index{Requirement!REQ-T-12} The app shall be distributed to a small group of test users through Apple TestFlight before any public App Store release, to gather feedback ahead of a general launch.\\
+\textit{Source:} Derived by the team's technical plan. \textbf{Use cases:} All (\UseCaseRef{UC-01}--\UseCaseRef{UC-10}).
+
+\paragraph{REQ-T-13: Companion website.}
+\ArtifactLabel{Requirement}{REQ-T-13}\index{Requirement!REQ-T-13} A companion marketing website shall be built and hosted separately from the app (a static site on Vercel or Netlify), sharing no codebase or backend with the iOS app.\\
+\textit{Source:} Derived by the team's technical plan. \textbf{Use cases:} None --- a separate product from the app (see the \hyperref[Chapter:Traceability]{Traceability Matrix}).
