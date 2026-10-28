@@ -174,3 +174,23 @@
 \textbf{Alternate flows:} 1a. The ingredient type is not recognized: the system asks the user to confirm or manually set an expiration date instead (\UseCaseRef{UC-02}).\\
 \textbf{Postconditions:} The user is alerted and offered a recipe before the ingredient spoils, without having to track expiration dates by hand.
 \end{sloppypar}
+
+\section{Activity Diagrams for Key Workflows}
+\index{activity diagrams}
+\index{UML!activity diagrams}
+
+\noindent The two diagrams below work through the decision points behind the use cases that most depend on a branching outcome rather than a single straight-line flow: the core ingredient-match search, and the newer photo-based pantry entry added from Milestone 1 presentation feedback (see \RequirementRef{REQ-F-19}, and \hyperref[Chapter:KeyConstraints]{Key Constraints}' \hyperref[Section:DesignIteration]{Design Iteration} section). Notation follows OMG UML 2.5.1 activity diagrams \cite{OMGUML251}: a filled circle is the initial node, a ringed filled circle is the activity final node, rounded rectangles are actions, and diamonds are decision points.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.62\textwidth,height=0.82\textheight,keepaspectratio]{figures/uml/activity-recipe-search.pdf}
+  \caption{Activity diagram for \UseCaseRef{UC-03} (Find Recipes from On-Hand Ingredients). Blue actions are performed by the user; green actions are performed by the system. When no recipe clears the minimum match threshold, the system falls back to showing the closest matches and what they are missing, rather than an empty result.}
+  \label{fig:activity-recipe-search}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.62\textwidth,height=0.82\textheight,keepaspectratio]{figures/uml/activity-photo-pantry.pdf}
+  \caption{Activity diagram for \UseCaseRef{UC-11} (Add Pantry Items by Photo). If the system cannot confidently identify any ingredient in the photo, the user is routed to manual entry (\UseCaseRef{UC-02}) instead of being left with an empty or stuck screen.}
+  \label{fig:activity-photo-pantry}
+\end{figure}

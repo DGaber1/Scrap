@@ -1,0 +1,60 @@
+\chapter{Codes and Standards}\ChapterLabel{CodesStandards}
+\index{codes and standards}
+\index{Chapter!Codes and Standards}
+
+\noindent This chapter consolidates every code and standard that applies to Scrap in one place, rather than leaving them as scattered citations across other chapters. Two kinds apply. \textbf{Process and documentation standards} (\hyperref[Section:ProcessStandards]{below}) govern how this report and the team's development process are organized; they do not appear as individual \texttt{REQ} entries, but they shaped the structure of the Requirements, Use Cases, Developer Requirements, and Verification, Validation, and Testing chapters. \textbf{Product-facing standards} (\hyperref[Section:ProductStandards]{below}) are guidelines Scrap itself must satisfy to be usable and store-approvable; each one was written directly into \hyperref[Chapter:Requirements]{Requirements} as a \texttt{shall} requirement, and each has a corresponding row in the Verification Register in \hyperref[Chapter:VerificationValidationTesting]{Verification, Validation, and Testing}.
+
+\section{Process and Documentation Standards}\label{Section:ProcessStandards}
+\index{standards!process}
+
+\noindent These standards are not requirements Scrap must satisfy as a product; they are the process standards the team adopted to organize this report and the development work behind it.
+
+\begin{tabularx}{\linewidth}{L{3.5cm}L{3.3cm}Y}
+\caption{Process and Documentation Standards\label{Table:ProcessStandards}}\\
+\toprule
+\textbf{Standard} & \textbf{Where It Applies} & \textbf{How It Shaped Scrap}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Standard} & \textbf{Where It Applies} & \textbf{How It Shaped Scrap}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\small\itshape Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+ISO/IEC/IEEE 15288:2023, System Life Cycle Processes \cite{ISO15288} & This report's overall structure & Organizes the report as a single life cycle --- mission and drivers, requirements, design, and verification and validation --- rather than disconnected sections written independently.\\
+ISO/IEC/IEEE 12207:2026, Software Life Cycle Processes \cite{ISO12207} & How the software-specific chapters relate & Governs how \hyperref[Chapter:Requirements]{Requirements}, \hyperref[Chapter:UseCases]{Use Cases}, and \hyperref[Chapter:DeveloperRequirements]{Developer Requirements} build on one another rather than standing alone.\\
+ISO/IEC/IEEE 29148:2018, Requirements Engineering \cite{ISO29148} & \hyperref[Chapter:Requirements]{Requirements} chapter & Basis for stating every requirement in \textit{shall}/\textit{could} form, sourced from a user story or named rationale, and independently verifiable; the structural basis for the \hyperref[Chapter:Traceability]{Traceability Matrix}.\\
+IEEE 1012-2024, System, Software, and Hardware Verification and Validation \cite{IEEE1012} & \hyperref[Chapter:VerificationValidationTesting]{Verification, Validation, and Testing} chapter & Defines the verification (``did we build it right'') versus validation (``did we build the right thing'') split that chapter is organized around.\\
+ISO/IEC/IEEE 29119-2:2021, Software Testing --- Test Processes \cite{ISO29119Part2} & Example Test Cases table & Structures every test case as a mapped requirement, a procedure, and an expected result.\\
+OMG UML 2.5.1 \cite{OMGUML251} & Every UML diagram in the report & Notation and semantics for the package, domain class, MVVM feature-slice, and search sequence diagrams in \hyperref[Chapter:DeveloperRequirements]{Developer Requirements}, and the two activity diagrams in \hyperref[Chapter:UseCases]{Use Cases}.\\
+\end{tabularx}
+
+\section{Product-Facing Standards and Guidelines}\label{Section:ProductStandards}
+\index{standards!product-facing}
+
+\noindent These are guidelines Scrap itself must meet. The team identified them early as non-negotiable rather than aspirational --- an iOS app that fails Apple's App Store Review Guidelines does not ship at all, and one that fails WCAG 2.1 AA is not usable by a share of its intended users --- so each became a \texttt{shall} requirement in \hyperref[Chapter:Requirements]{Requirements} with its own planned verification, rather than a goal mentioned in passing.
+
+{\small\begin{tabularx}{\linewidth}{L{3.1cm}L{2.9cm}L{2.0cm}L{1.9cm}}
+\caption{Product-Facing Standards and Guidelines\label{Table:ProductStandards}}\\
+\toprule
+\textbf{Standard} & \textbf{Applicable Scope} & \textbf{Design Req.} & \textbf{Checked By}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Standard} & \textbf{Applicable Scope} & \textbf{Design Req.} & \textbf{Checked By}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{\small\itshape Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+Web Content Accessibility Guidelines (WCAG) 2.1, Level AA \cite{WCAG21} & Every screen in the app & \RequirementRef{REQ-NF-05} & \VerificationRef{VER-014}\\
+Apple Human Interface Guidelines \cite{AppleHIG} & Navigation, typography, and Dynamic Type support across every screen & \RequirementRef{REQ-T-05} & \VerificationRef{VER-015}\\
+Apple App Store Review Guidelines \cite{AppleAppStoreReview} & Anything submitted to TestFlight or the App Store & \RequirementRef{REQ-T-05} & \VerificationRef{VER-015}\\
+\end{tabularx}}
+
+\noindent \RequirementRef{REQ-T-05} covers both Apple guidelines in one requirement because they were adopted together, from the same source (\UserStoryRef{US-12}, the business stakeholder's need for a native, approvable app) and are checked together in the same design review before any TestFlight or App Store submission (\VerificationRef{VER-015}).

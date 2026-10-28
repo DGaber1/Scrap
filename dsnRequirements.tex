@@ -107,8 +107,8 @@
 \textit{Source:} Derived by the team from \UserStoryRef{US-02} (sharing requires accounts and user trust). \textbf{Use cases:} \UseCaseRef{UC-01}, \UseCaseRef{UC-10}.
 
 \paragraph{REQ-NF-05: Accessibility.}
-\ArtifactLabel{Requirement}{REQ-NF-05}\index{Requirement!REQ-NF-05} The interface shall meet WCAG 2.1 Level AA guidelines, and every recipe video shall be accompanied by complete written steps.\\
-\textit{Source:} Derived by the team from \UserStoryRef{US-03} and \UserStoryRef{US-06}. \textbf{Use cases:} \UseCaseRef{UC-04}, \UseCaseRef{UC-09}.
+\ArtifactLabel{Requirement}{REQ-NF-05}\index{Requirement!REQ-NF-05} The interface shall meet WCAG 2.1 Level AA guidelines \cite{WCAG21}, and every recipe video shall be accompanied by complete written steps.\\
+\textit{Source:} Derived by the team from \UserStoryRef{US-03} and \UserStoryRef{US-06}. \textbf{Use cases:} \UseCaseRef{UC-04}, \UseCaseRef{UC-09}. See the \hyperref[Chapter:CodesStandards]{Codes and Standards} chapter for how this standard became a requirement and how it will be checked.
 
 \section{Constraints}
 \index{requirements!constraints}
@@ -159,8 +159,8 @@
 \textit{Source:} \UserStoryRef{US-09}. \textbf{Use cases:} All (\UseCaseRef{UC-01}--\UseCaseRef{UC-10}).
 
 \paragraph{REQ-T-05: Platform guidelines.}
-\ArtifactLabel{Requirement}{REQ-T-05}\index{Requirement!REQ-T-05} The app shall follow Apple's Human Interface Guidelines (navigation, typography, and Dynamic Type support) and Apple's App Store Review Guidelines.\\
-\textit{Source:} \UserStoryRef{US-12}. \textbf{Use cases:} All (\UseCaseRef{UC-01}--\UseCaseRef{UC-10}).
+\ArtifactLabel{Requirement}{REQ-T-05}\index{Requirement!REQ-T-05} The app shall follow Apple's Human Interface Guidelines \cite{AppleHIG} (navigation, typography, and Dynamic Type support) and Apple's App Store Review Guidelines \cite{AppleAppStoreReview}.\\
+\textit{Source:} \UserStoryRef{US-12}. \textbf{Use cases:} All (\UseCaseRef{UC-01}--\UseCaseRef{UC-10}). See the \hyperref[Chapter:CodesStandards]{Codes and Standards} chapter for how these guidelines became a requirement and how they will be checked.
 
 \paragraph{REQ-T-06: Automated testing.}
 \ArtifactLabel{Requirement}{REQ-T-06}\index{Requirement!REQ-T-06} The ingredient-matching and grocery-list logic, including the Supabase queries behind them, shall be covered by XCTest unit tests, and account creation and recipe search shall be covered by XCUITest.\\

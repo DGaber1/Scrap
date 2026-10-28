@@ -1,0 +1,278 @@
+\chapter{Developer Requirements and Coding Standards}\ChapterLabel{DeveloperRequirements}
+\index{requirements!developer}
+\index{Chapter!Developer Requirements}
+\begingroup\sloppy
+
+\noindent This chapter fixes how Scrap's code is written before the team begins building in earnest, so that all three members produce consistent, compatible code rather than settling conventions ad hoc. It covers the app's MVVM architecture pattern, the namespace (module and folder) structure, class and type naming conventions, and the UML diagrams that lay out the app's structure. Each rule is stated as a developer requirement (REQ-D) in the same ``shall'' form used in the Requirements chapter. All REQ-D requirements are derived by the team from the developer stakeholder stories \UserStoryRef{US-09} (isolated business logic) and \UserStoryRef{US-10} (confidence to change core logic), from the technical requirements \RequirementRef{REQ-T-01} through \RequirementRef{REQ-T-11}, and from the ScrapCore/ScrapApp split described in the Development Plan's Risks and Assumptions section. Screen and feature names are taken from the team's annotated UI designs.
+
+\begin{dsnNote}[How to use this chapter]
+Every pull request into \texttt{main} is reviewed against these rules. If a rule turns out to be wrong in practice, the team changes the rule here first (with a Document History entry) and then changes the code --- the code is never allowed to drift silently away from this chapter.
+\end{dsnNote}
+
+%======================================================================
+\section{Architecture Pattern: MVVM Across Two Modules}
+\index{architecture!MVVM}
+
+Scrap uses Model--View--ViewModel (MVVM). The team develops and compiles the app in Xcode on a Mac borrowed from the professor, but that is a single machine shared by three people. The pattern is therefore split across two Swift modules: \textbf{ScrapCore}, a platform-independent Swift package that every team member can build and test on their own Windows laptop without waiting for the Mac, and \textbf{ScrapApp}, the SwiftUI app target that is built and run on the borrowed Mac. The layers and where they live are summarized below; Figure~\ref{fig:uml-package} shows the resulting package structure.
+
+{\small\begin{tabularx}{\textwidth}{@{}L{2.6cm}L{2.2cm}Y@{}}
+\toprule
+\textbf{Layer} & \textbf{Module} & \textbf{Responsibility} \\
+\midrule
+Model & ScrapCore & Plain value types (\texttt{struct}/\texttt{enum}) describing Scrap's data: recipes, pantry items, grocery lists, and so on. No behavior beyond simple computed properties. \\
+Domain services & ScrapCore & All business logic: ingredient matching and ranking, filtering, substitutions, serving scaling, grocery-list building, cost estimation, guest/account access rules. Pure, synchronous functions where possible. \\
+Repository protocols & ScrapCore & Interfaces for loading and saving data (\texttt{RecipeRepository}, \texttt{KitchenRepository}, \dots). No knowledge of Supabase or SwiftData. \\
+Networking & ScrapCore & The Spoonacular client and its response types (DTOs), built on Foundation's \texttt{URLSession}. \\
+Data adapters & ScrapApp & Concrete repositories that talk to Supabase, SwiftData, and UserNotifications. \\
+ViewModel & ScrapApp & One per screen. Holds screen state, calls domain services and repositories, exposes intent methods to the view. Contains no business rules of its own. \\
+View & ScrapApp & SwiftUI layout only. Renders view-model state and forwards user actions as intent calls. \\
+\bottomrule
+\end{tabularx}}
+
+\paragraph{REQ-D-01: Business logic lives in ScrapCore.}
+\ArtifactLabel{Requirement}{REQ-D-01}\index{Requirement!REQ-D-01} Ingredient matching and ranking, recipe filtering, substitution lookup, serving scaling, grocery-list generation, cost estimation, and guest/account access rules shall be implemented in ScrapCore as domain services. View models shall call these services rather than re-implementing their logic.\\
+\textit{Source:} \UserStoryRef{US-09}, \RequirementRef{REQ-T-02}; shared-Mac constraint (Development Plan). \textbf{Rationale:} keeps the logic testable without the shared Mac and reachable through a single documented API.
+
+\paragraph{REQ-D-02: ScrapCore is platform-independent.}
+\ArtifactLabel{Requirement}{REQ-D-02}\index{Requirement!REQ-D-02} ScrapCore shall import only the Swift standard library and Foundation (including \texttt{FoundationNetworking} where required). It shall not import SwiftUI, UIKit, SwiftData, Combine, or any other Apple-only framework, and \texttt{swift build} and \texttt{swift test} shall succeed for ScrapCore on Windows. If a third-party SDK (for example, the Supabase Swift SDK) does not build on Windows, ScrapCore shall contain only the protocol, and the SDK-based implementation shall live in ScrapApp.\\
+\textit{Source:} Shared-Mac constraint (Development Plan), \RequirementRef{REQ-T-06}.
+
+\paragraph{REQ-D-03: One-way dependencies.}
+\ArtifactLabel{Requirement}{REQ-D-03}\index{Requirement!REQ-D-03} Dependencies shall point in one direction only: View $\rightarrow$ ViewModel $\rightarrow$ domain services and repository protocols $\rightarrow$ Models. ScrapCore shall never depend on ScrapApp; a view shall never call a repository, a network client, or Supabase directly; and a model type shall never reference a view model or view.\\
+\textit{Source:} \UserStoryRef{US-09}, \RequirementRef{REQ-T-02}.
+
+\paragraph{REQ-D-04: View model shape.}
+\ArtifactLabel{Requirement}{REQ-D-04}\index{Requirement!REQ-D-04} Each screen shall have exactly one view model, declared as a \texttt{@MainActor @Observable final class}. Its dependencies (repositories and services) shall be passed in through its initializer as protocol types, never created inside it. View models shall not import SwiftUI; they expose state as stored properties and user actions as methods named for the intent (for example \texttt{addToGroceryList(\_:)}, not \texttt{buttonTapped()}).\\
+\textit{Source:} \UserStoryRef{US-09}, \UserStoryRef{US-10}, \RequirementRef{REQ-T-02}.
+
+\paragraph{REQ-D-05: Explicit screen state.}
+\ArtifactLabel{Requirement}{REQ-D-05}\index{Requirement!REQ-D-05} Any screen that loads data shall represent its state with the shared generic enum \texttt{ViewState<Value>} with the cases \texttt{idle}, \texttt{loading}, \texttt{loaded(Value)}, \texttt{empty}, and \texttt{failed(ScrapError)}, and every view shall render all five cases. No screen may show a blank area for the \texttt{empty} or \texttt{failed} cases.\\
+\textit{Source:} \RequirementRef{REQ-T-11}. \textbf{Rationale:} makes ``no crash, no blank screen'' on a bad Spoonacular response a structural guarantee rather than something each developer must remember.
+
+\paragraph{REQ-D-06: Dependency wiring in one place.}
+\ArtifactLabel{Requirement}{REQ-D-06}\index{Requirement!REQ-D-06} All concrete repositories and clients shall be created in a single \texttt{AppDependencies} type in ScrapApp at launch and passed down to view models. SwiftUI previews and tests shall use in-memory implementations (see REQ-D-16) instead of live services.\\
+\textit{Source:} \UserStoryRef{US-10}, \RequirementRef{REQ-T-06}.
+
+\paragraph{REQ-D-07: Offline-first repositories.}
+\ArtifactLabel{Requirement}{REQ-D-07}\index{Requirement!REQ-D-07} Repositories that back pantry and recipe data shall read from the local cache first and refresh from Supabase or Spoonacular in the background. The cache-then-network logic shall live inside the repository implementation, so view models never contain code paths for ``online'' versus ``offline''.\\
+\textit{Source:} \UserStoryRef{US-11}, \RequirementRef{REQ-T-03}.
+
+\paragraph{REQ-D-08: Guest versus account access in one place.}
+\ArtifactLabel{Requirement}{REQ-D-08}\index{Requirement!REQ-D-08} The difference between guest users and signed-in users (for example, guests cannot save recipes, comment, or keep a grocery list past the current day, and are prompted to create an account instead) shall be decided only by an \texttt{AccessPolicy} service in ScrapCore that takes the current \texttt{SessionState}. Views and view models shall ask \texttt{AccessPolicy} rather than checking login status themselves.\\
+\textit{Source:} Team UI review (guest/account behavior on every screen), \RequirementRef{REQ-F-01}.
+
+%======================================================================
+\section{Namespaces}
+\index{namespaces}
+
+Swift has no \texttt{namespace} keyword. Each \emph{module} is a namespace (a type can always be written in full as \texttt{ScrapCore.Recipe}), and within a module the team uses folders and, for grouped constants, caseless enums. The requirements below define Scrap's namespaces and how code is placed in them.
+
+\paragraph{REQ-D-09: Two top-level namespaces.}
+\ArtifactLabel{Requirement}{REQ-D-09}\index{Requirement!REQ-D-09} Scrap's code shall be organized into exactly two first-party modules, \texttt{ScrapCore} (Swift package) and \texttt{ScrapApp} (Xcode app target), plus their test targets \texttt{ScrapCoreTests} and \texttt{ScrapAppUITests}. A new module shall be added only by updating this chapter first.\\
+\textit{Source:} Shared-Mac constraint (Development Plan), \RequirementRef{REQ-T-06}.
+
+\paragraph{REQ-D-10: No type shares a module's name.}
+\ArtifactLabel{Requirement}{REQ-D-10}\index{Requirement!REQ-D-10} No type shall be named \texttt{ScrapCore} or \texttt{ScrapApp}, because a type with the same name as its module breaks fully qualified names in Swift. The SwiftUI entry point shall therefore be \texttt{@main struct ScrapMain: App}. Types shall also not carry a redundant \texttt{Scrap} prefix (\texttt{Recipe}, not \texttt{ScrapRecipe}); the module already provides that context. The only exception is the shared error type \texttt{ScrapError}.\\
+\textit{Source:} Derived by the team (Swift module behavior).
+
+\paragraph{REQ-D-11: Folder structure is the namespace structure.}
+\ArtifactLabel{Requirement}{REQ-D-11}\index{Requirement!REQ-D-11} Source files shall be placed in the folder structure below. ScrapCore is organized by \emph{domain area}; ScrapApp is organized by \emph{feature (screen)}, with one folder per screen from the team's UI designs. A file shall not be placed in a folder whose name does not describe it, and folders named \texttt{Utils}, \texttt{Helpers}, \texttt{Misc}, or \texttt{Managers} shall not be created.\\
+\textit{Source:} \UserStoryRef{US-09}; team UI designs.
+
+{\footnotesize
+\begin{verbatim}
+ScrapCore/                         (Swift package; builds on any machine)
+  Package.swift
+  Sources/ScrapCore/
+    Models/         Recipe.swift, RecipeIngredient.swift, Ingredient.swift,
+                    PantryItem.swift, Kitchen.swift, GroceryList.swift,
+                    Quantity.swift, Equipment.swift, DietaryRestriction.swift,
+                    MealType.swift, Cuisine.swift, RecipeSubmission.swift, ...
+    Matching/       RecipeMatcher.swift, RecipeFilter.swift,
+                    RecipeFilterOptions.swift, SubstitutionFinder.swift
+    GroceryList/    GroceryListBuilder.swift, CostEstimator.swift
+    Scaling/        ServingScaler.swift
+    Access/         AccessPolicy.swift, SessionState.swift
+    Repositories/   RecipeRepository.swift, KitchenRepository.swift,
+                    GroceryListRepository.swift, CommunityRepository.swift,
+                    AuthService.swift              (protocols only)
+    Networking/     SpoonacularRecipeClient.swift, SpoonacularEndpoint.swift,
+                    SpoonacularRecipeDTO.swift
+    Common/         ViewState.swift, ScrapError.swift
+  Tests/ScrapCoreTests/
+    RecipeMatcherTests.swift, GroceryListBuilderTests.swift, ...
+
+ScrapApp/                          (Xcode app target; built on the borrowed Mac)
+  App/              ScrapMain.swift, AppDependencies.swift
+  Features/
+    Auth/           SignInView, SignUpView, CreateAccountPromptView (+ VMs)
+    Home/           HomeView, HomeViewModel   (search bar + top recipes)
+    RecipeDetail/   RecipeDetailView, RecipeDetailViewModel,
+                    SubstitutionSheet
+    Filters/        RecipeFiltersSheet, RecipeFiltersViewModel
+    GroceryList/    GroceryListView, GroceryListViewModel
+    Kitchen/        KitchenView, KitchenViewModel, PantrySection,
+                    FridgeSection, EquipmentPicker, RestrictionToggles
+    ReceiptUpload/  ReceiptUploadView, ReceiptUploadViewModel
+    Community/      FeedView, FeedViewModel, FriendsView, FriendsViewModel
+    Profile/        ProfileView, ProfileViewModel, NotificationSettingsView
+  Data/             SupabaseKitchenRepository, CachedRecipeRepository,
+                    SwiftDataRecipeCache, LocalNotificationScheduler, ...
+  DesignSystem/     ScrapColor, ScrapFont, NotebookPaperStyle
+  Resources/        Assets.xcassets, Localizable.xcstrings
+ScrapAppUITests/
+\end{verbatim}
+}
+
+\paragraph{REQ-D-12: Caseless enums for grouped constants.}
+\ArtifactLabel{Requirement}{REQ-D-12}\index{Requirement!REQ-D-12} Related constants and static helpers that do not belong to a model shall be grouped in a caseless \texttt{enum} that acts as a namespace (see the example below). Global free-standing constants and global functions shall not be used. API keys and Supabase URLs shall not be written in source code; they shall be read from a configuration file excluded from Git.\\
+\textit{Source:} Derived by the team; \RequirementRef{REQ-T-04}.
+{\footnotesize
+\begin{verbatim}
+enum SpoonacularEndpoint {
+    static let searchByIngredients = "/recipes/findByIngredients"
+    static let recipeInformation = "/recipes/{id}/information"
+}
+\end{verbatim}
+}
+
+\paragraph{REQ-D-13: Nested types for type-specific helpers.}
+\ArtifactLabel{Requirement}{REQ-D-13}\index{Requirement!REQ-D-13} A type used by only one other type shall be nested inside it (for example \texttt{RecipeFilterOptions.}\allowbreak\texttt{SortOrder}, \texttt{GroceryListItem.}\allowbreak\texttt{Source}) rather than declared at the top level of the module.\\
+\textit{Source:} Derived by the team.
+
+\paragraph{REQ-D-14: Access control defines the public API.}
+\ArtifactLabel{Requirement}{REQ-D-14}\index{Requirement!REQ-D-14} Everything in ScrapCore shall default to \texttt{internal}. Only the types and members ScrapApp actually needs shall be marked \texttt{public}, and every \texttt{public} declaration shall have a \texttt{///} documentation comment. This public surface is the ``documented API'' that \UserStoryRef{US-09} asks for. Inside ScrapApp, view-model properties that views must not change shall be \texttt{private(set)}.\\
+\textit{Source:} \UserStoryRef{US-09}, \RequirementRef{REQ-T-02}.
+
+%======================================================================
+\section{Class and Type Naming Conventions}
+\index{naming conventions}
+
+Scrap follows Apple's Swift API Design Guidelines. The requirements below add the project-specific rules.
+
+\paragraph{REQ-D-15: Base naming rules.}
+\ArtifactLabel{Requirement}{REQ-D-15}\index{Requirement!REQ-D-15} Types and protocols shall use \texttt{UpperCamelCase}; properties, functions, enum cases, and local variables shall use \texttt{lowerCamelCase}. Acronyms shall be cased uniformly (\texttt{recipeID}, \texttt{imageURL}, \texttt{SpoonacularDTO}; never \texttt{recipeId}). Booleans shall read as assertions (\texttt{isChecked}, \texttt{hasAccount}, \texttt{canSaveRecipes}). Names shall not use abbreviations other than \texttt{ID}, \texttt{URL}, and \texttt{DTO}.\\
+\textit{Source:} Derived by the team (Swift API Design Guidelines).
+
+\paragraph{REQ-D-16: Role suffixes and prefixes.}
+\ArtifactLabel{Requirement}{REQ-D-16}\index{Requirement!REQ-D-16} A type's name shall state its role using the suffixes and prefixes in the table below, and each source file shall contain one primary type and be named after it (\texttt{RecipeMatcher.swift}). Extensions shall be placed in files named \texttt{Type+Purpose.swift} (for example \texttt{Recipe+Sample.swift}).\\
+\textit{Source:} \UserStoryRef{US-09}, \UserStoryRef{US-10}.
+
+{\small\begin{tabularx}{\textwidth}{@{}L{3.3cm}L{4.6cm}Y@{}}
+\toprule
+\textbf{Kind of type} & \textbf{Pattern} & \textbf{Examples} \\
+\midrule
+Model & Plain noun, singular & \texttt{Recipe}, \texttt{PantryItem}, \texttt{GroceryList} \\
+SwiftUI screen & \texttt{<Screen>View} & \texttt{HomeView}, \texttt{KitchenView} \\
+Sheet or reusable sub-view & \texttt{<Thing>Sheet}, \texttt{<Thing>Row}, \texttt{<Thing>Card}, \texttt{<Thing>Section} & \texttt{SubstitutionSheet}, \texttt{RecipeCard}, \texttt{PantrySection} \\
+View model & \texttt{<Screen>ViewModel} (matches its view) & \texttt{HomeViewModel}, \texttt{GroceryListViewModel} \\
+Domain service & Agent noun ending in \emph{-er}, or a clear noun & \texttt{RecipeMatcher}, \texttt{ServingScaler}, \texttt{GroceryListBuilder}, \texttt{AccessPolicy} \\
+Repository protocol & \texttt{<Entity>Repository} & \texttt{RecipeRepository}, \texttt{KitchenRepository} \\
+Repository implementation & \texttt{<Technology>}\allowbreak\texttt{<Entity>Repository} & \texttt{SupabaseKitchenRepository}, \texttt{CachedRecipeRepository} \\
+Other service protocol & Noun for the capability & \texttt{AuthService}, \texttt{NotificationScheduler}, \texttt{ReceiptParser} \\
+External API client & \texttt{<Service>Client} & \texttt{SpoonacularRecipeClient} \\
+API response type & \texttt{<Service>}\allowbreak\texttt{<Thing>DTO} & \texttt{SpoonacularRecipeDTO} \\
+Error & \texttt{<Area>Error} (enum) & \texttt{ScrapError}, \texttt{NetworkError} \\
+Test doubles & \texttt{InMemory<Protocol>}, \texttt{Mock<Protocol>}, \texttt{Stub<Protocol>} & \texttt{InMemoryKitchenRepository}, \texttt{StubRecipeRepository} \\
+Unit test class & \texttt{<TypeUnderTest>}\allowbreak\texttt{Tests} & \texttt{RecipeMatcherTests} \\
+\bottomrule
+\end{tabularx}}
+
+\paragraph{REQ-D-17: Shared domain vocabulary.}
+\ArtifactLabel{Requirement}{REQ-D-17}\index{Requirement!REQ-D-17} Code, database tables, and UI copy shall use the terms in the table below with exactly these meanings. A new domain term shall be added to this table (and to the Glossary) before it is used in code.\\
+\textit{Source:} Team UI review; \RequirementRef{REQ-T-09}.
+
+{\small\begin{tabularx}{\textwidth}{@{}L{3.4cm}Y@{}}
+\toprule
+\textbf{Term (type)} & \textbf{Meaning} \\
+\midrule
+\texttt{Kitchen} & Everything a user has: their pantry and fridge items, equipment, and dietary restrictions. Replaces ``My Pantry'' as the umbrella term (the UI's ``My Kitchen''). \\
+\texttt{PantryItem} & One ingredient the user has on hand. Its \texttt{location} is \texttt{.pantry} (non-perishables, frozen items, spices; no expiration date needed) or \texttt{.fridge} (perishables, usually added from a receipt, with an estimated expiration date). \\
+\texttt{Ingredient} & A canonical ingredient identity (Spoonacular ID and name). Pantry items and recipe ingredients both point to one, which is how matching works. \\
+\texttt{RecipeIngredient} & An ingredient as it appears in a recipe, with a \texttt{Quantity}. \\
+\texttt{Equipment} & A kitchen appliance or tool. Equipment a recipe needs but the user lacks counts as a \emph{missing item}, just like a missing ingredient. \\
+\texttt{RankedRecipe} & A recipe paired with its \texttt{matchPercent}, missing ingredients, missing equipment, and estimated cost of the missing items. Produced only by \texttt{RecipeMatcher}. \\
+\texttt{matchPercent} & Share of a recipe's ingredients the user already has, as a \texttt{Double} from 0.0 to 1.0 (formatted as a percentage only in the view). \\
+\texttt{Substitution} & A replacement for a missing ingredient, flagged \texttt{isInKitchen} when the user already has it. \\
+\texttt{GroceryList} & A list of items to buy. A guest's list has \texttt{ownerID == nil} and is not saved past the current day. \\
+\texttt{RecipeSubmission} & A user-contributed recipe awaiting admin approval (\texttt{pending}, \texttt{approved}, \texttt{rejected}). \\
+\texttt{SessionState} & \texttt{.guest} or \texttt{.signedIn(User)}; the only input to \texttt{AccessPolicy}. \\
+\bottomrule
+\end{tabularx}}
+
+\paragraph{REQ-D-18: Database naming and mapping.}
+\ArtifactLabel{Requirement}{REQ-D-18}\index{Requirement!REQ-D-18} Supabase tables shall be plural \texttt{snake\_case} (\texttt{pantry\_items}, \texttt{recipe\_ingredients}, \texttt{grocery\_list\_items}); columns shall be \texttt{snake\_case}; foreign keys shall be named \texttt{<singular\_table>\_id} (\texttt{recipe\_id}). Swift code shall use the camelCase equivalent, converted by the decoder's snake-case key strategy or explicit \texttt{CodingKeys}. Database rows and API responses shall be converted into ScrapCore model types at the repository or client boundary, so DTO types never reach a view model.\\
+\textit{Source:} \RequirementRef{REQ-T-09}, \RequirementRef{REQ-T-10}.
+
+%======================================================================
+\section{Code Style, Errors, and Concurrency}
+
+\paragraph{REQ-D-19: Automatic formatting.}
+\ArtifactLabel{Requirement}{REQ-D-19}\index{Requirement!REQ-D-19} All Swift code shall be formatted with \texttt{swift format} (bundled with the Swift 6 toolchain) using one shared \texttt{.swift-format} configuration file committed to the repository root: 4-space indentation, a 120-character line limit, and trailing commas in multi-line collections. Code shall be formatted before every commit.\\
+\textit{Source:} Derived by the team.
+
+\paragraph{REQ-D-20: Value types by default.}
+\ArtifactLabel{Requirement}{REQ-D-20}\index{Requirement!REQ-D-20} Models shall be \texttt{struct}s or \texttt{enum}s that conform to \texttt{Equatable}, \texttt{Hashable} where useful, \texttt{Identifiable} where they appear in lists, \texttt{Codable} where they are stored or transmitted, and \texttt{Sendable}. Classes shall be used only for view models and for repository or client implementations that hold shared state, and every class shall be \texttt{final} unless it is designed for subclassing.\\
+\textit{Source:} Derived by the team.
+
+\paragraph{REQ-D-21: Async/await only.}
+\ArtifactLabel{Requirement}{REQ-D-21}\index{Requirement!REQ-D-21} Asynchronous work shall use Swift concurrency (\texttt{async}/\texttt{await}, \texttt{Task}). Completion-handler callbacks and Combine pipelines shall not be introduced. Repository and client methods that can fail shall be \texttt{async throws}.\\
+\textit{Source:} Derived by the team; \RequirementRef{REQ-T-04}.
+
+\paragraph{REQ-D-22: Errors are typed and never crash the app.}
+\ArtifactLabel{Requirement}{REQ-D-22}\index{Requirement!REQ-D-22} Production code shall not use \texttt{try!}, force unwrapping (\texttt{!}), \texttt{fatalError}, or force casts (\texttt{as!}). Errors shall be mapped to a case of \texttt{ScrapError} (for example \texttt{.network}, \texttt{.rateLimited}, \texttt{.notFound}, \texttt{.unauthorized}, \texttt{.invalidData}) at the repository or client boundary, and view models shall turn them into \texttt{ViewState.failed}. A Spoonacular response with a missing field shall be decoded with an optional or default value rather than failing the whole response.\\
+\textit{Source:} \RequirementRef{REQ-T-11}.
+
+\paragraph{REQ-D-23: No hard-coded user-facing text or styling.}
+\ArtifactLabel{Requirement}{REQ-D-23}\index{Requirement!REQ-D-23} User-facing strings shall live in the string catalog (\texttt{Localizable.xcstrings}), and colors and fonts shall come from \texttt{DesignSystem} (for example \texttt{ScrapColor.missingIngredient} for the red missing-ingredient highlight, \texttt{NotebookPaperStyle} for the grocery list). Fonts shall support Dynamic Type.\\
+\textit{Source:} \RequirementRef{REQ-T-05}; team UI review.
+
+%======================================================================
+\section{Testing and Version Control}
+
+\paragraph{REQ-D-24: Tests accompany core logic.}
+\ArtifactLabel{Requirement}{REQ-D-24}\index{Requirement!REQ-D-24} Every \texttt{public} domain service in ScrapCore shall have a matching \texttt{<Type>Tests} file, and a pull request that changes a domain service shall add or update its tests. Test methods shall be named \texttt{test\_<method>\_}\allowbreak\texttt{<condition>\_}\allowbreak\texttt{<expectedResult>} (for example \texttt{test\_rank\_}\allowbreak\texttt{whenKitchenIsEmpty\_}\allowbreak\texttt{returnsZeroMatchForAll}). Unit tests shall use in-memory or stub repositories and never call Supabase or Spoonacular.\\
+\textit{Source:} \UserStoryRef{US-10}, \RequirementRef{REQ-T-06}.
+
+\paragraph{REQ-D-25: Branches, commits, and reviews.}
+\ArtifactLabel{Requirement}{REQ-D-25}\index{Requirement!REQ-D-25} Work shall be done on branches named \texttt{<type>/}\allowbreak\texttt{<issue-number>-}\allowbreak\texttt{<short-description>} (for example \texttt{feature/}\allowbreak\texttt{14-grocery-list-export}, \texttt{fix/22-empty-search-crash}), where \texttt{<type>} is \texttt{feature}, \texttt{fix}, \texttt{docs}, or \texttt{chore}. Commit messages shall start with an imperative summary under 72 characters (``Add serving scaler'', not ``added stuff''). Code shall reach \texttt{main} only through a pull request that references its GitHub Issue, passes \texttt{swift test} for ScrapCore, and has been approved by at least one other team member. A pull request that changes ScrapApp shall also be built and run in the iOS Simulator on the borrowed Mac before it is merged, so that \texttt{main} always compiles in Xcode.\\
+\textit{Source:} \RequirementRef{REQ-C-06}; Workspace plan (Development Plan).
+
+%======================================================================
+\section{UML Diagrams of the App's Structure}
+\index{UML}
+
+The diagrams below describe the planned structure and are the reference for REQ-D-01 through REQ-D-18. Their Graphviz and \LaTeX{} sources are kept in the repository under \texttt{docs/uml/}.
+
+\paragraph{REQ-D-26: UML diagrams stay current.}
+\ArtifactLabel{Requirement}{REQ-D-26}\index{Requirement!REQ-D-26} The package diagram, domain class diagram, MVVM feature-slice diagram, and search sequence diagram shall be kept as source files in \texttt{docs/uml/}. A pull request that adds a module, a top-level folder, a model type, or a repository protocol shall update the affected diagram in the same pull request.\\
+\textit{Source:} \UserStoryRef{US-09}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/uml/package-structure.pdf}
+  \caption{UML package diagram. ScrapApp depends on ScrapCore, never the reverse; only ScrapApp's Data adapters and ScrapCore's Networking folder touch external services.}
+  \label{fig:uml-package}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/uml/domain-model.pdf}
+  \caption{UML class diagram of the ScrapCore domain model. Green classes are computed results produced by domain services rather than stored data.}
+  \label{fig:uml-domain}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/uml/mvvm-feature-slice.pdf}
+  \caption{UML class diagram of one MVVM feature slice (the Home search screen). The view model depends only on ScrapCore protocols and services; concrete repositories are injected by \texttt{AppDependencies}.}
+  \label{fig:uml-mvvm}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/uml/search-sequence.pdf}
+  \caption{UML sequence diagram for an ingredient search (\UseCaseRef{UC-03}). The returned \texttt{ViewState} is \texttt{.loaded}, \texttt{.empty}, or \texttt{.failed}, so the view never shows a blank screen (REQ-D-05).}
+  \label{fig:uml-search}
+\end{figure}
+\endgroup

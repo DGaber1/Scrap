@@ -3,7 +3,69 @@
 \chapter{Weekly Reports}\ChapterLabel{WeeklyReports}
 \index{weekly reports}
 \index{Chapter!Weekly Reports}
-Add the newest week's report as a new section at the top of this chapter. Retain every prior week's report so that the team's weekly progress remains a complete, auditable record.
+
+\section{Week Report 9 (October 28, 2026)}
+
+\noindent\textbf{1. What We Did This Past Week}
+
+This week, we shifted our focus to our design review: we finished building out our Milestone 1 design review slide deck, covering our user stories and planned validation, requirements and planned verification, use cases and design diagrams, codes and standards, and constraints and design iteration; practiced delivering it together as a team; and presented it. We also started work on our Milestone 2 presentation. We did not make progress on the Mac-access decision or on real development this week.
+
+\noindent\textbf{2. What We Will Do Next Week}
+
+Next week, our goal is to finally get into tangible development: commit as a team to one of the Mac-access options we have been weighing since Week 8, set up the real Xcode project, and start writing and testing our first screens and view models against the conventions in our Developer Requirements chapter --- not just the setup, but real code.
+
+\noindent\textbf{3. Action Items}
+\begin{itemize}
+\item Decide as a team which Mac-access option to commit to (shared or dedicated cloud Mac vs.\ buying a personal Mac).
+\item Set up the real Xcode project and confirm ScrapCore builds inside it.
+\item Begin implementing and testing our first screens and view models following the Developer Requirements chapter's conventions, not just the project setup.
+\end{itemize}
+
+\noindent\textbf{4. Issues and Risks}
+
+Real implementation is now a third week behind our original Week 7 plan, since this week's effort went toward preparing and delivering the design review and starting our Milestone 2 presentation, rather than resolving Mac access. We are comfortable with that tradeoff given those deadlines, but we are treating next week as a hard commitment point for more than just the Mac decision and project setup: we are committing to actually writing and testing real code against that setup before the week is out, not leaving coding for the week after. Our Mac-access risk in Risks and Assumptions remains open.
+
+\section{Week Report 8 (October 24, 2026)}
+
+\noindent\textbf{1. What We Did This Past Week}
+
+This week, we tried to get Xcode set up on the department Mac without tying it to anyone's personal Apple ID, and downloaded what turned out to be Xcode 13.4.1 rather than the current release. After looking into it, we realized that version cannot actually be used for this project: Apple has required Xcode 26 or later for any App Store Connect or TestFlight upload since April 2026, and 13.4.1 is also too old to support the \texttt{@Observable} view-model pattern our own Developer Requirements chapter commits to. That sent us back to weighing our options for reliable, up-to-date Mac access: a shared or dedicated cloud-hosted Mac (paired with Xcode Cloud for automated builds), versus simply buying a personal Mac, such as Apple's new lower-cost MacBook Neo. We have not yet picked one.
+
+\noindent\textbf{2. What We Will Do Next Week}
+
+Next week, we plan to finish weighing the cloud-Mac and buy-a-Mac options, commit to one as a team, and actually begin development against it --- setting up the real Xcode project and starting on our first screens and view models under the conventions in the Developer Requirements chapter.
+
+\noindent\textbf{3. Action Items}
+\begin{itemize}
+\item Compare the cost and practicality of a shared cloud Mac plus Xcode Cloud, a dedicated cloud Mac, and buying a personal Mac (e.g.\ the MacBook Neo), for the rest of the project through May.
+\item Decide as a team which option to commit to.
+\item Once decided, set up the real Xcode project and begin implementing our first screens and view models.
+\end{itemize}
+
+\noindent\textbf{4. Issues and Risks}
+
+Real implementation is now a second week behind the plan from our Week 7 report, since getting a usable, current version of Xcode turned out to be less straightforward than expected. We are treating this as a decision worth taking the time to get right rather than deferring again, and are committing to settle on one option next week rather than continuing to weigh alternatives indefinitely. Our Mac-access risk in Risks and Assumptions remains open until a dependable setup is actually in place.
+
+\section{Week Report 7 (October 16, 2026)}
+
+\noindent\textbf{1. What We Did This Past Week}
+
+This week, we wrote our developer requirements before starting real implementation: a new Developer Requirements and Coding Standards chapter that fixes our MVVM architecture split across ScrapCore and ScrapApp, the namespace and folder structure for both modules, class and type naming conventions, and the UML diagrams (package, domain class, MVVM feature-slice, and search sequence) that lay out the app's structure. We also got the Mac our professor arranged for us working --- we now have reliable access to a department Mac instead of depending only on shared library computers, which was the risk we flagged in Week 6.
+
+\noindent\textbf{2. What We Will Do Next Week}
+
+Next week, we plan to begin real development: setting up the actual Xcode project on the department Mac, wiring the ScrapCore package into it, and building our first end-to-end slice against the conventions we just wrote down in the Developer Requirements chapter, instead of continuing to treat our code as a scaffold.
+
+\noindent\textbf{3. Action Items}
+\begin{itemize}
+\item Set up the real Xcode project on the department Mac and confirm ScrapCore builds inside it.
+\item Begin implementing our first screens and view models following the Developer Requirements chapter's MVVM, naming, and folder conventions.
+\item Keep the UML diagrams in the Developer Requirements chapter current as we add the first real modules and types.
+\end{itemize}
+
+\noindent\textbf{4. Issues and Risks}
+
+Now that we have the Developer Requirements chapter in place, our main risk shifts from planning to actually following it once three people are writing code at once --- we are mitigating this by requiring every pull request to be reviewed against that chapter before it merges. Reliable access to the department Mac reduces, but does not eliminate, our earlier Mac-access risk; we are still tracking it in Risks and Assumptions since the arrangement is new and we have not yet relied on it for a full week of development.
 
 \section{Week Report 6 (October 7, 2026)}
 

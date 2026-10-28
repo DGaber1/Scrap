@@ -35,6 +35,20 @@ Data management presents another potential constraint. The application depends o
 
 Finally, usability is an important constraint because the application is intended to be simple and convenient for users who may already be short on time. The core experience should allow users to quickly enter what they have and receive useful recommendations without requiring extensive setup. As we develop the application, we will need to balance the number of available filters and features with the simplicity of the interface. The final product should demonstrate the core concept of Scrap clearly while remaining achievable within the technical and time limitations of the project.
 
+\section{Tradeoffs and a Documented Design Iteration}\label{Section:DesignIteration}
+\index{key constraints!tradeoffs}
+\index{design iteration}
+
+\noindent Each constraint above forced a specific tradeoff rather than staying abstract. The budget constraint means grocery costs are shown as estimates rather than real-time prices, since no free, real-time grocery price source is available (\RequirementRef{REQ-C-05}). The team's inexperience with the chosen stack means the project's scope had to assume a learning curve rather than senior-level velocity from day one (see Risks and Assumptions, below). The functionality-versus-complexity constraint produced the \textit{shall}/\textit{could} split in \hyperref[Chapter:Requirements]{Requirements} itself: recipe video, leftover tracking, and expiration alerts were marked as bonus rather than required so the minimum viable product stays achievable (\RequirementRef{REQ-F-07}, \RequirementRef{REQ-F-13}, \RequirementRef{REQ-F-14}). The data-management constraint means the app must tolerate an imperfect third-party data source rather than assuming clean, consistent ingredient data (\RequirementRef{REQ-T-11}). The usability constraint means filters are deliberately limited to time, difficulty, and equipment rather than exposing every attribute Spoonacular returns.
+
+\noindent The team has also closed one complete design-iteration loop so far, and is documenting it explicitly here rather than leaving it implied by version history alone. After the team's Milestone 1 class presentation, reviewers raised usability feedback that two steps in the app's core loop were still manual and tedious: typing every pantry item in by hand, and tracking each item's expiration date without any reminder. Rather than deferring that feedback to a later milestone, the team closed the loop directly in this report:
+
+\begin{enumerate}
+\item \textbf{Feedback:} Milestone 1 presentation reviewers identified manual pantry entry and untracked expiration as the two biggest friction points in the proposed design.
+\item \textbf{Design change:} the team added two new bonus functional requirements the same week --- \RequirementRef{REQ-F-19} (photo-based pantry entry) and \RequirementRef{REQ-F-20} (automatic shelf-life estimation and expiration reminders) --- each with its own use case (\UseCaseRef{UC-11}, \UseCaseRef{UC-12}), traced through \hyperref[Chapter:Requirements]{Requirements} and the \hyperref[Chapter:Traceability]{Traceability Matrix}, and recorded in \hyperref[Chapter:DocumentHistory]{Document History} (v1.22).
+\item \textbf{Planned recheck:} each new requirement has its own verification row in the Verification Register --- \VerificationRef{VER-005} for \RequirementRef{REQ-F-19}, \VerificationRef{VER-006} for \RequirementRef{REQ-F-20} (see \hyperref[Chapter:VerificationValidationTesting]{Verification, Validation, and Testing}) --- so the team has a concrete, planned way to confirm the change actually resolved the feedback once Scrap is built. Neither check has run yet, since implementation has not started; both are labeled \StatusPending rather than treated as already resolved.
+\end{enumerate}
+
 \chapter{Development Plan}\ChapterLabel{DevelopmentPlan}
 \index{development plan}
 \index{Chapter!Development Plan}

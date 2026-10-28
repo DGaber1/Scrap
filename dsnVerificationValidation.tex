@@ -9,7 +9,7 @@
 \section{Verification Register}
 \index{verification!register}
 
-\noindent The register below lists a representative set of Scrap's requirements, including the two bonus requirements added from Milestone 1 presentation feedback (\RequirementRef{REQ-F-19}, \RequirementRef{REQ-F-20}), the verification method that applies to each, and the evidence the team will collect. It is not exhaustive of all requirements in \hyperref[Chapter:Requirements]{Requirements}; it will grow as implementation proceeds.
+\noindent The register below lists a representative set of Scrap's requirements, including the two bonus requirements added from Milestone 1 presentation feedback (\RequirementRef{REQ-F-19}, \RequirementRef{REQ-F-20}) and the three requirements that come directly from an external code or standard (\VerificationRef{VER-013} through \VerificationRef{VER-015}; see the \hyperref[Chapter:CodesStandards]{Codes and Standards} chapter), the verification method that applies to each, and the evidence the team will collect. It is not exhaustive of all requirements in \hyperref[Chapter:Requirements]{Requirements}; it will grow as implementation proceeds.
 
 \begin{tabularx}{\linewidth}{L{1.7cm}L{2.75cm}L{2.8cm}YL{2.1cm}}
 \caption{Verification Register\label{Table:VerificationRegister}}\\
@@ -38,6 +38,9 @@
 \VerificationID{VER-010} & \RequirementRef{REQ-C-01} & Analysis & Review of projected Spoonacular call volume and Supabase storage against free-tier limits & \StatusPending\\
 \VerificationID{VER-011} & \RequirementRef{REQ-T-06} & Inspection & Review of the XCTest/XCUITest coverage report for ingredient-matching, grocery-list, account, and search flows & \StatusPending\\
 \VerificationID{VER-012} & \RequirementRef{REQ-T-11} & Test & Simulated Spoonacular error and rate-limit responses confirmed not to crash the app or show a blank screen (\TestCaseRef{TC-006}) & \StatusPending\\
+\VerificationID{VER-013} & \RequirementRef{REQ-NF-03} & Inspection & UI walkthrough on the narrowest supported simulator width (375\,pt) confirming every screen is fully usable with no horizontal scrolling or clipped controls & \StatusPending\\
+\VerificationID{VER-014} & \RequirementRef{REQ-NF-05} & Inspection & VoiceOver walkthrough of every screen checked against WCAG 2.1 Level AA \cite{WCAG21} (contrast, Dynamic Type, focus order, labeled controls), plus confirmation that every recipe video is accompanied by complete written steps & \StatusPending\\
+\VerificationID{VER-015} & \RequirementRef{REQ-T-05} & Inspection & Design review against Apple's Human Interface Guidelines \cite{AppleHIG} (navigation, typography, Dynamic Type) and a pre-submission check against the App Store Review Guidelines \cite{AppleAppStoreReview} before any TestFlight or App Store submission & \StatusPending\\
 \end{tabularx}
 
 \section{Validation Register}
@@ -66,6 +69,10 @@
 \ValidationID{VAL-004} & \UserStoryRef{US-13} & A beta user receives a shelf-life reminder for a vegetable nearing spoilage. & The user opens the notification and cooks a suggested recipe before the ingredient spoils. & \StatusPending\\
 \ValidationID{VAL-005} & \UserStoryRef{US-02} & A beta user shares a dish they cooked to the community feed. & The user reports that sharing feels social rather than like a chore. & \StatusPending\\
 \ValidationID{VAL-006} & \UserStoryRef{US-14} & A beta user reports an inappropriate community post. & A moderator reviews and removes the content within an agreed response time. & \StatusPending\\
+\ValidationID{VAL-007} & \UserStoryRef{US-03} & A beta user who normally finds recipes on social media opens a recipe in Scrap that includes a video. & The user follows the written steps directly in the app, without needing to replay or scrub the video to find a step. & \StatusPending\\
+\ValidationID{VAL-008} & \UserStoryRef{US-04} & A beta user logs leftover portions from a cooked recipe. & Scrap suggests a recipe that uses the logged leftovers before they would otherwise be forgotten and go to waste. & \StatusPending\\
+\ValidationID{VAL-009} & \UserStoryRef{US-06} & A beta user browsing recipes on their phone opens a recipe from the results list. & The user reaches the complete ingredient list and instructions within one tap, without leaving the app or hunting for hidden content. & \StatusPending\\
+\ValidationID{VAL-010} & \UserStoryRef{US-07} & A budget-conscious beta user generates a grocery list for a recipe they are missing a few ingredients for. & The list contains only the ingredients the user actually lacks, scaled to their chosen servings, with an estimated total cost. & \StatusPending\\
 \end{tabularx}
 
 \section{Example Test Cases}
