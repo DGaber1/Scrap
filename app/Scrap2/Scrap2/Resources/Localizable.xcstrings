@@ -1,0 +1,430 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "· %lld min total" : {
+
+    },
+    "%@ expires on %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ expires on %2$@."
+          }
+        }
+      }
+    },
+    "%lld" : {
+
+    },
+    "%lld min" : {
+
+    },
+    "≈ %@" : {
+
+    },
+    "Accounts are a preview for now. They last until you close the app, until we connect Supabase." : {
+
+    },
+    "Add %lld missing items to grocery list" : {
+
+    },
+    "Add a few ingredients and your top recipes will show up here." : {
+
+    },
+    "Add a title, at least one ingredient, and at least one step." : {
+
+    },
+    "Add an ingredient…" : {
+
+    },
+    "add an item…" : {
+
+    },
+    "Add missing to list" : {
+
+    },
+    "Added to grocery list" : {
+
+    },
+    "Any" : {
+
+    },
+    "Best match" : {
+
+    },
+    "Cancel" : {
+
+    },
+    "Check your email and password (6+ characters) and try again." : {
+
+    },
+    "Checked" : {
+
+    },
+    "Clear expiration date" : {
+
+    },
+    "Close" : {
+
+    },
+    "Community" : {
+
+    },
+    "Cook: %lld min" : {
+
+    },
+    "Create account" : {
+
+    },
+    "Create an account to save recipes you love." : {
+
+    },
+    "Create an account to share your own recipes." : {
+
+    },
+    "Cuisine" : {
+
+    },
+    "Dairy-free" : {
+
+    },
+    "Dietary" : {
+
+    },
+    "Dietary needs" : {
+
+    },
+    "Difficulty" : {
+
+    },
+    "Done" : {
+
+    },
+    "Easy" : {
+
+    },
+    "Email" : {
+
+    },
+    "Equipment" : {
+
+    },
+    "Equipment you need" : {
+
+    },
+    "Estimated total" : {
+
+    },
+    "Everything you add here is used to find recipes you can make." : {
+
+    },
+    "Expires" : {
+
+    },
+    "Expires %@" : {
+
+    },
+    "Fastest" : {
+
+    },
+    "Fewer servings" : {
+
+    },
+    "Filters" : {
+
+    },
+    "Finding recipes…" : {
+
+    },
+    "for %lld recipes · tap to check off" : {
+
+    },
+    "for 1 recipe · tap to check off" : {
+
+    },
+    "Gluten-free" : {
+
+    },
+    "Grocery" : {
+
+    },
+    "Grocery list" : {
+
+    },
+    "Hide recipes that need equipment I don't have" : {
+
+    },
+    "Highest protein" : {
+
+    },
+    "Home" : {
+
+    },
+    "Ingredients (one per line, like 2 cups flour)" : {
+
+    },
+    "Instead of %@" : {
+
+    },
+    "Kitchen section" : {
+
+    },
+    "Loading recipe…" : {
+
+    },
+    "Loading recipes…" : {
+
+    },
+    "Lowest cost" : {
+
+    },
+    "match" : {
+
+    },
+    "Meal" : {
+
+    },
+    "Meal and cuisine" : {
+
+    },
+    "Missing" : {
+
+    },
+    "Missing: %@" : {
+
+    },
+    "Mode" : {
+
+    },
+    "More servings" : {
+
+    },
+    "Move to %@" : {
+
+    },
+    "My Kitchen" : {
+
+    },
+    "Name" : {
+
+    },
+    "Need to buy" : {
+
+    },
+    "No community recipes yet. Be the first to share one." : {
+
+    },
+    "No instructions were provided for this recipe." : {
+
+    },
+    "No recipes match your filters." : {
+
+    },
+    "Not checked" : {
+
+    },
+    "Not now" : {
+
+    },
+    "Nothing here yet. Search above to add your first ingredient." : {
+
+    },
+    "Nut-free" : {
+
+    },
+    "Options for %@" : {
+
+    },
+    "Password (6+ characters)" : {
+
+    },
+    "Please sign in to continue." : {
+
+    },
+    "Prep: %lld min" : {
+
+    },
+    "Profile" : {
+
+    },
+    "Purchased these items · Start new list" : {
+
+    },
+    "Recipe" : {
+
+    },
+    "Remove" : {
+
+    },
+    "Remove %@" : {
+
+    },
+    "Remove from saved recipes" : {
+
+    },
+    "Reset filters" : {
+
+    },
+    "Save" : {
+
+    },
+    "Save recipe" : {
+
+    },
+    "Save recipes, share your own, and keep your lists." : {
+
+    },
+    "Saved recipes" : {
+
+    },
+    "Scan a receipt" : {
+
+    },
+    "Scan receipt" : {
+
+    },
+    "Scrap" : {
+
+    },
+    "Section" : {
+
+    },
+    "Servings" : {
+
+    },
+    "Servings: %lld" : {
+
+    },
+    "Set expiration date…" : {
+
+    },
+    "Share" : {
+
+    },
+    "Share a recipe" : {
+
+    },
+    "Share list" : {
+
+    },
+    "Showing sample recipes. Add your Spoonacular key to Secrets.plist for real ones." : {
+
+    },
+    "Sign in" : {
+
+    },
+    "Sign in or create an account" : {
+
+    },
+    "Sign out" : {
+
+    },
+    "Something went wrong. Please try again." : {
+
+    },
+    "Soon you'll snap a grocery receipt and Scrap will add everything to your kitchen." : {
+
+    },
+    "Sort by" : {
+
+    },
+    "Steps (one per line)" : {
+
+    },
+    "Submit" : {
+
+    },
+    "Substitute?" : {
+
+    },
+    "Tap the heart on a recipe to save it here." : {
+
+    },
+    "tap to check off" : {
+
+    },
+    "Thanks! Your recipe is waiting for review." : {
+
+    },
+    "This recipe has no details yet." : {
+
+    },
+    "Time" : {
+
+    },
+    "Time and difficulty" : {
+
+    },
+    "Title" : {
+
+    },
+    "To buy" : {
+
+    },
+    "Top recipes" : {
+
+    },
+    "Total time" : {
+
+    },
+    "Try again" : {
+
+    },
+    "Up to %lld min" : {
+
+    },
+    "Up to medium" : {
+
+    },
+    "Use it up: %@" : {
+
+    },
+    "Use soon · %@" : {
+
+    },
+    "Use soon: %@" : {
+
+    },
+    "Vegan" : {
+
+    },
+    "Vegetarian" : {
+
+    },
+    "We couldn't find that." : {
+
+    },
+    "We couldn't reach the server. Check your connection and try again." : {
+
+    },
+    "We don't have a swap for this one that fits your dietary needs yet." : {
+
+    },
+    "We got a response we didn't expect. Please try again." : {
+
+    },
+    "We'll remind you two days before." : {
+
+    },
+    "We've hit our recipe search limit for now. Please try again in a bit." : {
+
+    },
+    "What's in your kitchen?" : {
+
+    },
+    "You have" : {
+
+    },
+    "You have this" : {
+
+    },
+    "Your account" : {
+
+    }
+  },
+  "version" : "1.0"
+}
