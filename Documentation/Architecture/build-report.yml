@@ -1,0 +1,38 @@
+name: Build report
+
+on:
+  push:
+    paths: ["report/**"]
+  pull_request:
+    paths: ["report/**"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-extra texlive-fonts-recommended \
+            texlive-science texlive-pictures texlive-bibtex-extra texlive-xetex \
+            lmodern latexmk
+
+      - name: Build PDF
+        working-directory: report
+        run: |
+          pdflatex -interaction=nonstopmode SeniorDesignReportTemplate.tex
+          bibtex SeniorDesignReportTemplate
+          makeglossaries SeniorDesignReportTemplate
+          pdflatex -interaction=nonstopmode SeniorDesignReportTemplate.tex
+          makeindex SeniorDesignReportTemplate
+          pdflatex -interaction=nonstopmode SeniorDesignReportTemplate.tex
+          pdflatex -interaction=nonstopmode SeniorDesignReportTemplate.tex
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: Scrap-Report
+          path: report/SeniorDesignReportTemplate.pdf
