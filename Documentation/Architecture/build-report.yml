@@ -2,9 +2,9 @@ name: Build report
 
 on:
   push:
-    paths: ["report/**"]
+    paths: ["Documentation/Architecture/**"]
   pull_request:
-    paths: ["report/**"]
+    paths: ["Documentation/Architecture/**"]
   workflow_dispatch:
 
 jobs:
@@ -21,7 +21,7 @@ jobs:
             lmodern latexmk
 
       - name: Build PDF
-        working-directory: report
+        working-directory: Documentation/Architecture
         run: |
           pdflatex -interaction=nonstopmode SeniorDesignReportTemplate.tex
           bibtex SeniorDesignReportTemplate
@@ -35,4 +35,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Scrap-Report
-          path: report/SeniorDesignReportTemplate.pdf
+         path: Documentation/Architecture/SeniorDesignReportTemplate.pdf
