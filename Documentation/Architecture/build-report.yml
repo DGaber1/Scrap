@@ -3,8 +3,6 @@ name: Build report
 on:
   push:
     paths: ["Documentation/Architecture/**"]
-  pull_request:
-    paths: ["Documentation/Architecture/**"]
   workflow_dispatch:
 
 jobs:
@@ -35,4 +33,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Scrap-Report
-         path: Documentation/Architecture/SeniorDesignReportTemplate.pdf
+          path: Documentation/Architecture/SeniorDesignReportTemplate.pdf
