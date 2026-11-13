@@ -2,16 +2,35 @@ name: Build report
 
 on:
   push:
-    paths: ["architecture/**"]
-  pull_request:
-    paths: ["architecture/**"]
+    branches: [main]
+    paths: ["Documentation/Architecture/**"]
   workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  REPORT_DIR: Documentation/Architecture
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Version = Major.Minor.Changelist
+      #   Major.Minor comes from \DocumentMajorMinor in SeniorDesignReportTemplate.tex
+      #   Changelist  is the number of commits on this branch (goes up on every push)
+      - name: Compute version
+        id: ver
+        run: |
+          MM=$(grep -oP '\\newcommand\{\\DocumentMajorMinor\}\{\K[0-9]+\.[0-9]+' "$REPORT_DIR/SeniorDesignReportTemplate.tex")
+          CL=$(git rev-list --count HEAD)
+          echo "changelist=$CL" >> "$GITHUB_OUTPUT"
+          echo "version=$MM.$CL" >> "$GITHUB_OUTPUT"
+          echo "Building version $MM.$CL"
 
       - name: Install LaTeX
         run: |
@@ -21,18 +40,35 @@ jobs:
             lmodern latexmk
 
       - name: Build PDF
-        working-directory: architecture
+        working-directory: ${{ env.REPORT_DIR }}
         run: |
-          pdflatex -interaction=nonstopmode SeniorDesignReportTemplate.tex
+          B='\def\BuildChangelist{${{ steps.ver.outputs.changelist }}}\input{SeniorDesignReportTemplate.tex}'
+          pdflatex -interaction=nonstopmode "$B"
           bibtex SeniorDesignReportTemplate
           makeglossaries SeniorDesignReportTemplate
-          pdflatex -interaction=nonstopmode SeniorDesignReportTemplate.tex
+          pdflatex -interaction=nonstopmode "$B"
           makeindex SeniorDesignReportTemplate
-          pdflatex -interaction=nonstopmode SeniorDesignReportTemplate.tex
-          pdflatex -interaction=nonstopmode SeniorDesignReportTemplate.tex
+          pdflatex -interaction=nonstopmode "$B"
+          pdflatex -interaction=nonstopmode "$B"
 
-      - name: Upload PDF
+      - name: Package versioned ZIP
+        run: |
+          V=${{ steps.ver.outputs.version }}
+          mkdir -p dist/Scrap-Report-v$V
+          cp "$REPORT_DIR/SeniorDesignReportTemplate.pdf" "dist/Scrap-Report-v$V/Scrap-Report-v$V.pdf"
+          echo "Scrap report, version $V, built from commit $GITHUB_SHA" > "dist/Scrap-Report-v$V/VERSION.txt"
+          cd dist && zip -r "Scrap-Report-v$V.zip" "Scrap-Report-v$V"
+
+      - name: Upload build output
         uses: actions/upload-artifact@v4
         with:
-          name: Scrap-Report
-          path: architecture/SeniorDesignReportTemplate.pdf
+          name: Scrap-Report-v${{ steps.ver.outputs.version }}
+          path: dist/Scrap-Report-v${{ steps.ver.outputs.version }}.zip
+
+      # Also publishes the ZIP as a Release, so the versioned file is easy to find and download.
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.ver.outputs.version }}
+          name: Scrap Report v${{ steps.ver.outputs.version }}
+          files: dist/Scrap-Report-v${{ steps.ver.outputs.version }}.zip
