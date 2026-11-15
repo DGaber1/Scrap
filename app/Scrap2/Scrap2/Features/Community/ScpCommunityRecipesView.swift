@@ -1,8 +1,9 @@
 import SwiftUI
 import ScrapCore
 
-/// Recipes from other Scrap users, ranked against your kitchen.
-struct ScpCommunityView: View {
+/// Recipes from other Scrap users, ranked against your kitchen (REQ-F-15).
+/// Opened from the Community tab, so it runs inside that tab's navigation stack.
+struct ScpCommunityRecipesView: View {
     let community: ScpCommunityViewModel
     let kitchen: ScpKitchenViewModel
     let groceryList: ScpGroceryListViewModel
@@ -14,37 +15,32 @@ struct ScpCommunityView: View {
     @State private var showsSubmit = false
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                LazyVStack(alignment: .leading, spacing: 16) {
-                    HStack {
-                        Text("Community")
-                            .font(ScpFont.screenTitle)
-                            .foregroundStyle(ScpColor.textPrimary)
-                        Spacer()
-                        Button {
-                            if session.isAllowed(.submitRecipe) {
-                                showsSubmit = true
-                            } else {
-                                onNeedAccount("Create an account to share your own recipes.")
-                            }
-                        } label: {
-                            Label("Share", systemImage: "plus")
-                        }
-                        .buttonStyle(ScpSoftButtonStyle())
-                    }
-                    .padding(.top, 8)
-                    content
-                }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 24)
+        ScrollView {
+            LazyVStack(alignment: .leading, spacing: 16) {
+                content
             }
-            .background(ScpColor.background)
-            .toolbar(.hidden, for: .navigationBar)
-            .sheet(isPresented: $showsSubmit) {
-                if let user = session.user {
-                    ScpSubmitRecipeView(community: community, authorID: user.id)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+        }
+        .background(ScpColor.background)
+        .navigationTitle("Community recipes")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    if session.isAllowed(.submitRecipe) {
+                        showsSubmit = true
+                    } else {
+                        onNeedAccount("Create an account to share your own recipes.")
+                    }
+                } label: {
+                    Label("Share a recipe", systemImage: "plus")
                 }
+            }
+        }
+        .sheet(isPresented: $showsSubmit) {
+            if let user = session.user {
+                ScpSubmitRecipeView(community: community, authorID: user.id)
             }
         }
         .task { await community.load() }

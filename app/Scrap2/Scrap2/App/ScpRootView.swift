@@ -16,6 +16,8 @@ struct ScpRootView: View {
     @State private var session: ScpSessionViewModel
     @State private var favorites: ScpFavoritesViewModel
     @State private var community: ScpCommunityViewModel
+    @State private var feed: ScpFeedViewModel
+    @State private var friends: ScpFriendsViewModel
     @State private var showsScanSheet = false
     @State private var accountReason: LocalizedStringKey?
 
@@ -30,6 +32,8 @@ struct ScpRootView: View {
         _session = State(initialValue: ScpSessionViewModel(authService: dependencies.authService))
         _favorites = State(initialValue: ScpFavoritesViewModel(repository: dependencies.favoritesRepository))
         _community = State(initialValue: ScpCommunityViewModel(repository: dependencies.communityRepository))
+        _feed = State(initialValue: ScpFeedViewModel(repository: dependencies.feedRepository))
+        _friends = State(initialValue: ScpFriendsViewModel(repository: dependencies.friendsRepository))
         _groceryList = State(
             initialValue: ScpGroceryListViewModel(
                 repository: dependencies.groceryListRepository,
@@ -62,8 +66,11 @@ struct ScpRootView: View {
                 case .grocery:
                     ScpGroceryListView(groceryList: groceryList)
                 case .community:
-                    ScpCommunityView(
+                    ScpFeedView(
+                        feed: feed,
+                        friends: friends,
                         community: community,
+                        home: home,
                         kitchen: kitchen,
                         groceryList: groceryList,
                         session: session,
@@ -92,6 +99,12 @@ struct ScpRootView: View {
             await groceryList.load()
             await favorites.load()
         }
+        // Friends are needed outside the Community tab too ("Ask to borrow" on Recipe Detail),
+        // so load them whenever someone signs in or out.
+        .task(id: session.user?.id) {
+            await friends.load(user: session.user, equipment: kitchen.kitchen.equipment)
+        }
+        .environment(friends)
         .sheet(
             isPresented: Binding(
                 get: { accountReason != nil },

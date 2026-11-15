@@ -27,6 +27,14 @@ enum ScpColor {
     static let paperLine = Color(scpHex: 0xB9D3E8)
     static let paperMargin = Color(scpHex: 0xE9A6A0)
     static let ink = Color(scpHex: 0x2A2A45)
+    /// Background colors for initial-letter avatars, picked per username.
+    static let avatarPalette: [Color] = [
+        Color(scpHex: 0x4B6E49), Color(scpHex: 0xB5654A), Color(scpHex: 0x7A5C8E),
+        Color(scpHex: 0x3E7C8C), Color(scpHex: 0xC08A2E), Color(scpHex: 0x8C4B5E),
+    ]
+    /// Warm gradient behind sample post photos.
+    static let photoPlaceholderTop = Color(scpHex: 0xE8D5B0)
+    static let photoPlaceholderBottom = Color(scpHex: 0xD9B98A)
 }
 
 private extension Color {

@@ -13,6 +13,9 @@ struct ScpRecipeDetailView: View {
     @State private var section: DetailSection = .ingredients
     @State private var justAdded = false
     @State private var substitutionTarget: ScpRecipeIngredient?
+    @State private var borrowTarget: ScpEquipment?
+    /// Provided by the root view. Optional so previews work without it.
+    @Environment(ScpFriendsViewModel.self) private var friendsModel: ScpFriendsViewModel?
     let kitchen: ScpKitchen
     let groceryList: ScpGroceryListViewModel
     let session: ScpSessionViewModel
@@ -68,6 +71,16 @@ struct ScpRecipeDetailView: View {
         .sheet(item: $substitutionTarget) { target in
             ScpSubstitutionSheet(ingredient: target, substitutions: viewModel.substitutions(for: target))
                 .presentationDetents([.medium])
+        }
+        .sheet(item: $borrowTarget) { equipment in
+            if let friendsModel {
+                ScpBorrowEquipmentView(
+                    equipment: equipment,
+                    recipeTitle: viewModel.title,
+                    friends: friendsModel,
+                    groceryList: groceryList
+                )
+            }
         }
         .task { await viewModel.load() }
     }
@@ -213,11 +226,19 @@ struct ScpRecipeDetailView: View {
                 .foregroundStyle(ScpColor.missingIngredient)
                 .textCase(.uppercase)
             ForEach(viewModel.missingEquipment) { equipment in
-                Text(equipment.name)
-                    .foregroundStyle(ScpColor.missingIngredient)
-                    .padding(12)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(ScpColor.missingBackground, in: RoundedRectangle(cornerRadius: 12))
+                HStack {
+                    Text(equipment.name)
+                        .foregroundStyle(ScpColor.missingIngredient)
+                    Spacer()
+                    if friendsModel != nil {
+                        Button("Borrow from a friend?") { borrowTapped(equipment) }
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(ScpColor.brand)
+                    }
+                }
+                .padding(12)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(ScpColor.missingBackground, in: RoundedRectangle(cornerRadius: 12))
             }
         }
 
@@ -240,6 +261,14 @@ struct ScpRecipeDetailView: View {
                 .background(ScpColor.card, in: RoundedRectangle(cornerRadius: 12))
             }
         }
+    }
+
+    private func borrowTapped(_ equipment: ScpEquipment) {
+        guard session.isAllowed(.borrowEquipment) else {
+            onNeedAccount("Create an account to borrow equipment from friends.")
+            return
+        }
+        borrowTarget = equipment
     }
 
     @ViewBuilder

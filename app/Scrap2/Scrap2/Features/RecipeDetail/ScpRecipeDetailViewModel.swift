@@ -67,7 +67,13 @@ final class ScpRecipeDetailViewModel {
     func load() async {
         state = .loading
         do {
-            let full = try await recipeRepository.recipe(id: ranked.recipe.id)
+            // Community recipes are already complete and are not in Spoonacular, so use them as listed.
+            let full: ScpRecipe
+            if ranked.recipe.source == .community {
+                full = ranked.recipe
+            } else {
+                full = try await recipeRepository.recipe(id: ranked.recipe.id)
+            }
             baseRecipe = full
             servings = max(full.servings, 1)
             state = (full.ingredients.isEmpty && full.instructions.isEmpty) ? .empty : .loaded(full)

@@ -10,6 +10,8 @@ struct ScpAppDependencies {
     let groceryListRepository: any ScpGroceryListRepository
     let favoritesRepository: any ScpFavoritesRepository
     let communityRepository: any ScpCommunityRepository
+    let feedRepository: any ScpFeedRepository
+    let friendsRepository: any ScpFriendsRepository
     let authService: any ScpAuthService
     let reminderScheduler: any ScpReminderScheduling
     let substitutionFinder: ScpSubstitutionFinder
@@ -32,6 +34,8 @@ struct ScpAppDependencies {
             groceryListRepository: ScpUserDefaultsGroceryListRepository(),
             favoritesRepository: ScpUserDefaultsFavoritesRepository(),
             communityRepository: InMemoryScpCommunityRepository(),
+            feedRepository: InMemoryScpFeedRepository(),
+            friendsRepository: InMemoryScpFriendsRepository(),
             authService: InMemoryScpAuthService(),
             reminderScheduler: ScpLocalNotificationScheduler(),
             substitutionFinder: ScpSubstitutionFinder(),
@@ -54,6 +58,8 @@ struct ScpAppDependencies {
             groceryListRepository: InMemoryScpGroceryListRepository(),
             favoritesRepository: InMemoryScpFavoritesRepository(),
             communityRepository: InMemoryScpCommunityRepository(),
+            feedRepository: InMemoryScpFeedRepository(),
+            friendsRepository: InMemoryScpFriendsRepository(),
             authService: InMemoryScpAuthService(),
             reminderScheduler: ScpNoReminderScheduler(),
             substitutionFinder: ScpSubstitutionFinder(),

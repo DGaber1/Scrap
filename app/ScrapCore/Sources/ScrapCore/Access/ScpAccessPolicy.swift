@@ -11,6 +11,18 @@ public struct ScpAccessPolicy: Sendable {
         case submitRecipe
         case keepGroceryListPastToday
         case addFriend
+        /// Posting a dish to the community feed (REQ-F-16).
+        case sharePost
+        /// Liking a post.
+        case likePost
+        /// Saving a post to come back to.
+        case savePost
+        /// Reporting a post (REQ-F-17).
+        case reportContent
+        /// Asking a friend to lend equipment.
+        case borrowEquipment
+        /// Seeing the Friends tab of the feed.
+        case viewFriendsFeed
     }
 
     public let session: ScpSessionState
