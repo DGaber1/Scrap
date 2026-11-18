@@ -9,6 +9,8 @@ struct ScpProfileView: View {
     let favorites: ScpFavoritesViewModel
     let dependencies: ScpAppDependencies
     let onNeedAccount: (LocalizedStringKey) -> Void
+    /// The running app's version, for the About row and the footer line.
+    var appVersion: ScpAppVersion = .current
 
     var body: some View {
         NavigationStack {
@@ -45,6 +47,25 @@ struct ScpProfileView: View {
                     } label: {
                         Label("Saved recipes", systemImage: "heart")
                     }
+                }
+                .listRowBackground(ScpColor.card)
+
+                Section {
+                    NavigationLink {
+                        ScpAboutView(version: appVersion)
+                    } label: {
+                        LabeledContent {
+                            Text("v\(appVersion.version)")
+                        } label: {
+                            Label("About Scrap", systemImage: "info.circle")
+                        }
+                    }
+                } footer: {
+                    Text(appVersion.shortText)
+                        .font(ScpFont.caption)
+                        .foregroundStyle(ScpColor.textMuted)
+                        .frame(maxWidth: .infinity)
+                        .padding(.top, 16)
                 }
                 .listRowBackground(ScpColor.card)
             }
